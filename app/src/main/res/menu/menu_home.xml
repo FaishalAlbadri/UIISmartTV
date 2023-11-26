@@ -13,4 +13,13 @@
         android:icon="@drawable/ic_menu_home"
         android:title="@string/main_menu_home" />
 
+    <item
+        android:id="@+id/radio"
+        android:icon="@drawable/ic_menu_radio"
+        android:title="@string/main_menu_radio" />
+
+    <item
+        android:id="@+id/gallery"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="@string/main_menu_gallery" />
 </menu>

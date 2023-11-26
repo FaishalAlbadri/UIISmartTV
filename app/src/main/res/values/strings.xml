@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">UII Smart TV</string>
+
     <string name="main_menu_search">Search</string>
     <string name="main_menu_home">Home</string>
+    <string name="main_menu_radio">Radio</string>
+    <string name="main_menu_gallery">Gallery</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

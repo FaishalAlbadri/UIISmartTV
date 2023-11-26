@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_main_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main_graph"
+    app:startDestination="@id/home">
+
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/home" />
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.faishalbadri.uiismarttv.fragment.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/search"
+        android:name="com.faishalbadri.uiismarttv.fragment.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/radio"
+        android:name="com.faishalbadri.uiismarttv.fragment.radio.RadioFragment"
+        android:label="fragment_radio"
+        tools:layout="@layout/fragment_radio" />
+    <fragment
+        android:id="@+id/gallery"
+        android:name="com.faishalbadri.uiismarttv.fragment.gallery.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <action
+        android:id="@+id/action_global_profile"
+        app:destination="@id/profile" />
 
 </navigation>
