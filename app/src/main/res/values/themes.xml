@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="Theme.UIISmartTV" parent="@style/Theme.Leanback" />
+
+    <style name="AppTheme.SplashScreen" parent="Theme.UIISmartTV">
+        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+    </style>
+
+</resources>
