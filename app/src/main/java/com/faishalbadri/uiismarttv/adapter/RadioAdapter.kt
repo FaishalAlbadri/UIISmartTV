@@ -3,6 +3,7 @@ package com.faishalbadri.uiismarttv.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
@@ -12,6 +13,7 @@ import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
+@UnstableApi
 class RadioAdapter(radioData: MutableList<RadioData>) : RecyclerView.Adapter<RadioAdapter.MyViewHolder>() {
 
     private var radioData = radioData
@@ -37,7 +39,8 @@ class RadioAdapter(radioData: MutableList<RadioData>) : RecyclerView.Adapter<Rad
                 }
                 binding.apply {
                     Glide.with(itemView.context)
-                        .load(itemView.context.resources.getIdentifier("logo_uii", "drawable", itemView.context.packageName))
+                        .load(data.imageRadio)
+                        .centerCrop()
                         .into(imgRadio)
                     txtRadio.text = data.namaRadio
                 }
