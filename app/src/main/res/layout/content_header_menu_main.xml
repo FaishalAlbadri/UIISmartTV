@@ -7,7 +7,7 @@
     android:layout_marginTop="16dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:foreground="@drawable/fg_navigation_header_icon"
+    android:foreground="@drawable/bg_menu_selector"
     android:padding="4dp">
 
     <ImageView

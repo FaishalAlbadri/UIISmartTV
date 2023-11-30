@@ -26,6 +26,7 @@ class RadioFragment : Fragment() {
 
     private var player: ExoPlayer?= null
     private var lastRadio = ""
+    private var radioName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,28 +61,34 @@ class RadioFragment : Fragment() {
             View.VISIBLE else binding.isLoading.root.visibility = View.GONE
     }
 
-    fun playRadio(link: String) {
+    fun playRadio(link: String, radioName: String) {
         if (player == null) {
-            lastRadio = link
-            player = ExoPlayer.Builder(activity?.applicationContext!!).build().apply {
-                addListener(playerListener)
-            }
-            val mediaItem = MediaItem.fromUri(link)
-            player!!.setMediaItem(mediaItem)
-            player!!.prepare()
+            initRadio(link, radioName)
         } else {
+            binding.txtRadioPlay.visibility = View.GONE
             releasePlayer()
             if (lastRadio != link) {
-                lastRadio = link
-                player = ExoPlayer.Builder(activity?.applicationContext!!).build().apply {
-                    addListener(playerListener)
-                }
-                val mediaItem = MediaItem.fromUri(link)
-                player!!.setMediaItem(mediaItem)
-                player!!.prepare()
+                initRadio(link, radioName)
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        releasePlayer()
+    }
+
+    private fun initRadio(link: String, radioName: String) {
+        lastRadio = link
+        this.radioName = radioName
+        player = ExoPlayer.Builder(activity?.applicationContext!!).build().apply {
+            addListener(playerListener)
+        }
+        val mediaItem = MediaItem.fromUri(link)
+        player!!.setMediaItem(mediaItem)
+        player!!.prepare()
     }
 
     private fun releasePlayer() {
@@ -107,18 +114,20 @@ class RadioFragment : Fragment() {
                 }
                 Player.STATE_READY -> {
                     play()
+                    binding.apply {
+                        txtRadioPlay.text = "Kamu sedang mendengarkan " + radioName
+                        txtRadioPlay.visibility = View.VISIBLE
+                    }
                 }
                 Player.STATE_BUFFERING -> {
+                    binding.apply {
+                        txtRadioPlay.text = "Loading Radio"
+                        txtRadioPlay.visibility = View.VISIBLE
+                    }
                 }
                 Player.STATE_IDLE -> {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        releasePlayer()
     }
 }

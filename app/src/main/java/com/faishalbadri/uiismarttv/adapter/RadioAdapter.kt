@@ -33,7 +33,7 @@ class RadioAdapter(radioData: MutableList<RadioData>) : RecyclerView.Adapter<Rad
 
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is RadioFragment -> fragment.playRadio(data.link)
+                            is RadioFragment -> fragment.playRadio(data.link, data.namaRadio)
                         }
                     }
                 }
