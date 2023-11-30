@@ -62,4 +62,14 @@ class RadioAdapter(radioData: MutableList<RadioData>) : RecyclerView.Adapter<Rad
             holder.bind(data)
         }
     }
+
+    fun delete() {
+        val size: Int = radioData.size
+        if (size > 0) {
+            for (i in 0 until size) {
+                radioData.removeAt(0)
+            }
+            notifyItemRangeChanged(0, size)
+        }
+    }
 }
