@@ -3,9 +3,9 @@ package com.faishalbadri.uiismarttv
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.faishalbadri.navigation.setupWithNavController
@@ -17,7 +17,6 @@ import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 class HomeActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -25,8 +24,8 @@ class HomeActivity : FragmentActivity() {
 
         val navHostFragment = this.supportFragmentManager
             .findFragmentById(R.id.nav_main_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-        navController.navigate(R.id.home)
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.radio)
 
         binding.navMain.setupWithNavController(navController)
 
@@ -37,14 +36,6 @@ class HomeActivity : FragmentActivity() {
         navController.addOnDestinationChangedListener {_, destination, _ ->
             binding.navMain.headerView?.apply {
                 val header = ContentHeaderMenuMainBinding.bind(this)
-
-                Glide.with(context)
-                    .load(resources.getIdentifier("logo_uii", "drawable", this@HomeActivity.packageName))
-                    .into(header.ivNavigationHeaderIcon)
-
-                header.tvNavigationHeaderTitle.text = getString(
-                    R.string.app_name
-                )
 
                 setOnOpenListener {
                     header.tvNavigationHeaderTitle.visibility = View.VISIBLE

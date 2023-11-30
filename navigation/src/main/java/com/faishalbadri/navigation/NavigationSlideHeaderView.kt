@@ -2,6 +2,7 @@ package com.faishalbadri.navigation
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 
 class NavigationSlideHeaderView @JvmOverloads constructor(
@@ -26,6 +27,7 @@ class NavigationSlideHeaderView @JvmOverloads constructor(
         isFocusableInTouchMode = true
 
         openListener?.invoke()
+        Log.i("NavigationDebug", "openNavigation")
     }
 
     fun close() {
@@ -33,5 +35,6 @@ class NavigationSlideHeaderView @JvmOverloads constructor(
         isFocusableInTouchMode = false
 
         closeListener?.invoke()
+        Log.i("NavigationDebug", "closeNavigation")
     }
 }

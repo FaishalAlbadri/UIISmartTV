@@ -10,7 +10,6 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import java.lang.ref.WeakReference
 
-
 /**
  * Sets up a [NavigationSlideView] for use with a [NavController]. This will call
  * [android.view.MenuItem.onNavDestinationSelected] when a menu item is selected.

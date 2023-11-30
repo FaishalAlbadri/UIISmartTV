@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:foreground="@drawable/fg_navigation_header_icon"
     android:padding="8dp">
 
     <ImageView
@@ -14,12 +15,12 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:duplicateParentState="true"
-        android:foreground="@drawable/fg_navigation_header_icon"
         android:padding="2dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription,UseAppTint"
+        android:src="@drawable/logo_uii" />
 
     <TextView
         android:id="@+id/tv_navigation_header_title"
@@ -34,6 +35,7 @@
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_navigation_header_icon"
         app:layout_constraintStart_toEndOf="@id/iv_navigation_header_icon"
-        app:layout_constraintTop_toTopOf="@id/iv_navigation_header_icon" />
+        app:layout_constraintTop_toTopOf="@id/iv_navigation_header_icon"
+        android:text="@string/app_name" />
 
 </com.faishalbadri.navigation.NavigationSlideHeaderView>

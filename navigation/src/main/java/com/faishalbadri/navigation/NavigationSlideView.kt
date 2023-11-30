@@ -13,7 +13,6 @@ import androidx.appcompat.view.SupportMenuInflater
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.content.res.getResourceIdOrThrow
 
-
 @SuppressLint("RestrictedApi")
 class NavigationSlideView @JvmOverloads constructor(
     context: Context,

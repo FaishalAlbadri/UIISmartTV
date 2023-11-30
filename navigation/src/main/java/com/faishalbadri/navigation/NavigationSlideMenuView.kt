@@ -13,7 +13,6 @@ import androidx.appcompat.view.menu.MenuView
 import androidx.core.view.forEachIndexed
 import kotlin.math.min
 
-
 @SuppressLint("RestrictedApi")
 class NavigationSlideMenuView(
     context: Context,

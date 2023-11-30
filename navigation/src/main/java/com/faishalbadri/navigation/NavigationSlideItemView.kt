@@ -3,7 +3,8 @@ package com.faishalbadri.navigation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Build
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,15 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuItemImpl
-import androidx.appcompat.view.menu.MenuView
+import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.PointerIconCompat
 import androidx.core.view.ViewCompat
 
-
 @SuppressLint("RestrictedApi")
 class NavigationSlideItemView(
     context: Context,
-) : FrameLayout(context), MenuView.ItemView {
+) : FrameLayout(context), ItemView {
 
     private val view = LayoutInflater.from(context).inflate(
         getItemLayoutResId(),
@@ -54,7 +54,7 @@ class NavigationSlideItemView(
         }
 
         // Avoid calling tooltip for L and M devices because long pressing twice may freeze devices.
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+        if (VERSION.SDK_INT > VERSION_CODES.M) {
             TooltipCompat.setTooltipText(this, tooltipText)
         }
         visibility = if (itemData.isVisible) VISIBLE else GONE
