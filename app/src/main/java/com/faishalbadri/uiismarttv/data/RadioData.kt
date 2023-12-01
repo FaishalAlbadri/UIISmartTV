@@ -1,7 +1,8 @@
 package com.faishalbadri.uiismarttv.data
 
 data class RadioData (
-    val imageRadio: String,
     val namaRadio: String,
+    val signalRadio: String,
+    val imageRadio: String,
     val link: String
 )

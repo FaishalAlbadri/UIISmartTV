@@ -14,37 +14,39 @@ import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
 @UnstableApi
-class RadioAdapter(radioData: MutableList<RadioData>) : RecyclerView.Adapter<RadioAdapter.MyViewHolder>() {
+class RadioAdapter(radioData: MutableList<RadioData>) :
+    RecyclerView.Adapter<RadioAdapter.MyViewHolder>() {
 
     private var radioData = radioData
 
     class MyViewHolder(private val binding: ItemRadioBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(data: RadioData){
-                binding.root.apply {
-                    setOnFocusChangeListener { _, hasFocus ->
-                        val animation = when {
-                            hasFocus -> AnimationUtils.loadAnimation(context, R.anim.zoom_in)
-                            else -> AnimationUtils.loadAnimation(context, R.anim.zoom_out)
-                        }
-                        binding.root.startAnimation(animation)
-                        animation.fillAfter = true
+        fun bind(data: RadioData) {
+            binding.root.apply {
+                setOnFocusChangeListener { _, hasFocus ->
+                    val animation = when {
+                        hasFocus -> AnimationUtils.loadAnimation(context, R.anim.zoom_in)
+                        else -> AnimationUtils.loadAnimation(context, R.anim.zoom_out)
                     }
-
-                    setOnClickListener {
-                        when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is RadioFragment -> fragment.playRadio(data.link, data.namaRadio)
-                        }
-                    }
+                    binding.root.startAnimation(animation)
+                    animation.fillAfter = true
                 }
-                binding.apply {
-                    Glide.with(itemView.context)
-                        .load(data.imageRadio)
-                        .centerCrop()
-                        .into(imgRadio)
-                    txtRadio.text = data.namaRadio
+
+                setOnClickListener {
+                    when (val fragment = context.toActivity()?.getCurrentFragment()) {
+                        is RadioFragment -> fragment.playRadio(data.link, data)
+                    }
                 }
             }
+            binding.apply {
+                Glide.with(itemView.context)
+                    .load(data.imageRadio)
+                    .centerCrop()
+                    .into(imgRadio)
+                txtRadio.text = data.namaRadio
+                txtRadioSignal.text = data.signalRadio
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

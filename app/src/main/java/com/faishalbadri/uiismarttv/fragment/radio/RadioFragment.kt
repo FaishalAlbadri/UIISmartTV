@@ -10,6 +10,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.RadioData
 import com.faishalbadri.uiismarttv.adapter.RadioAdapter
@@ -27,6 +28,7 @@ class RadioFragment : Fragment() {
     private var player: ExoPlayer?= null
     private var lastRadio = ""
     private var radioName = ""
+    private var radioSignal = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,14 +63,20 @@ class RadioFragment : Fragment() {
             View.VISIBLE else binding.isLoading.root.visibility = View.GONE
     }
 
-    fun playRadio(link: String, radioName: String) {
+    fun playRadio(link: String, data: RadioData) {
         if (player == null) {
-            initRadio(link, radioName)
+            initRadio(link, data)
         } else {
-            binding.txtRadioPlay.visibility = View.GONE
+            binding.apply {
+                cvRadio.txtRadioName.text = ""
+                cvRadio.txtRadioSignal.text = ""
+                Glide.with(activity?.applicationContext!!)
+                    .load(R.drawable.ic_play_circle)
+                    .into(cvRadio.imgRadioStatus)
+            }
             releasePlayer()
             if (lastRadio != link) {
-                initRadio(link, radioName)
+                initRadio(link, data)
             }
         }
 
@@ -81,9 +89,15 @@ class RadioFragment : Fragment() {
         releasePlayer()
     }
 
-    private fun initRadio(link: String, radioName: String) {
+    override fun onStop() {
+        super.onStop()
+        releasePlayer()
+    }
+
+    private fun initRadio(link: String, data: RadioData) {
         lastRadio = link
-        this.radioName = radioName
+        radioName = data.namaRadio
+        radioSignal = data.signalRadio
         player = ExoPlayer.Builder(activity?.applicationContext!!).build().apply {
             addListener(playerListener)
         }
@@ -116,14 +130,20 @@ class RadioFragment : Fragment() {
                 Player.STATE_READY -> {
                     play()
                     binding.apply {
-                        txtRadioPlay.text = "Kamu sedang mendengarkan " + radioName
-                        txtRadioPlay.visibility = View.VISIBLE
+                        cvRadio.txtRadioName.text = radioName
+                        cvRadio.txtRadioSignal.text = radioSignal
+                        Glide.with(activity?.applicationContext!!)
+                            .load(R.drawable.ic_pause_circle)
+                            .into(cvRadio.imgRadioStatus)
                     }
                 }
                 Player.STATE_BUFFERING -> {
                     binding.apply {
-                        txtRadioPlay.text = "Loading Radio"
-                        txtRadioPlay.visibility = View.VISIBLE
+                        cvRadio.txtRadioName.text = "Loading Radio"
+                        cvRadio.txtRadioSignal.text = ""
+                        Glide.with(activity?.applicationContext!!)
+                            .load(R.raw.loading)
+                            .into(cvRadio.imgRadioStatus)
                     }
                 }
                 Player.STATE_IDLE -> {
