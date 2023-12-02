@@ -27,6 +27,8 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="8dp"
+        app:focusOutEnd="true"
+        app:focusOutFront="true"
         app:layout_constraintBottom_toTopOf="@+id/cv_radio"
         app:layout_constraintLeft_toLeftOf="@+id/txt_radio"
         app:layout_constraintRight_toRightOf="@+id/txt_radio"
