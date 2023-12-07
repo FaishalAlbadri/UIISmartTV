@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.data
+package com.faishalbadri.uiismarttv.data.dummy
 
 data class RadioData (
     val namaRadio: String,

@@ -7,7 +7,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.data.RadioData
+import com.faishalbadri.uiismarttv.data.dummy.RadioData
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment

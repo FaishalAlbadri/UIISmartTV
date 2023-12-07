@@ -3,7 +3,7 @@ package com.faishalbadri.uiismarttv.fragment.radio
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.faishalbadri.uiismarttv.data.RadioData
+import com.faishalbadri.uiismarttv.data.dummy.RadioData
 
 class RadioViewModel : ViewModel() {
 

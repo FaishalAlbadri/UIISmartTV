@@ -16,7 +16,7 @@ import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 
 class HomeActivity : FragmentActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -25,7 +25,7 @@ class HomeActivity : FragmentActivity() {
         val navHostFragment = this.supportFragmentManager
             .findFragmentById(R.id.nav_main_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        navController.navigate(R.id.radio)
+        navController.navigate(R.id.home)
 
         binding.navMain.setupWithNavController(navController)
 

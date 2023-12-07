@@ -12,7 +12,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.data.RadioData
+import com.faishalbadri.uiismarttv.data.dummy.RadioData
 import com.faishalbadri.uiismarttv.adapter.RadioAdapter
 import com.faishalbadri.uiismarttv.databinding.FragmentRadioBinding
 
