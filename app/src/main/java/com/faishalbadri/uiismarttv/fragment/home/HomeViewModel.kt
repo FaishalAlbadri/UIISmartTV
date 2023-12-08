@@ -24,12 +24,12 @@ class HomeViewModel: ViewModel() {
                 list = DummyData().dataBanner
             ),
             HomeData(
-                msg = HomeData.News,
-                list = DummyData().dataNews
-            ),
-            HomeData(
                 msg = HomeData.Video,
                 list = DummyData().dataVideo
+            ),
+            HomeData(
+                msg = HomeData.News,
+                list = DummyData().dataNews
             )
         )
         _contentData.value = dataResponse
