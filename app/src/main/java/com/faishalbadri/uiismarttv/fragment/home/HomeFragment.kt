@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.adapter.viewholder.AppAdapter
+import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
 

@@ -1,9 +1,11 @@
-package com.faishalbadri.uiismarttv.adapter.viewholder
+package com.faishalbadri.uiismarttv.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.faishalbadri.uiismarttv.adapter.viewholder.LoadingViewHolder
+import com.faishalbadri.uiismarttv.adapter.viewholder.SliderViewHolder
 import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
