@@ -10,12 +10,13 @@ class HomeData(
 ) : AppAdapter.Item {
 
     var selectedIndex = 0
+    var itemSpacing: Int = 0
 
-    override lateinit var itemType: AppAdapter.Type
+    override var itemType = AppAdapter.Type.ITEM_HOME
 
     companion object {
-        const val Banner = "ContentBannerSlider"
-        const val Video = "ContentVideo"
-        const val News = "ContentNews"
+        const val Banner = "Banner"
+        const val Video = "Video"
+        const val News = "News"
     }
 }

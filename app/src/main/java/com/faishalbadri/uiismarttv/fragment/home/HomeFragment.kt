@@ -10,6 +10,7 @@ import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.HomeData
+import com.faishalbadri.uiismarttv.data.dummy.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -59,7 +60,20 @@ class HomeFragment : Fragment() {
             //Banner Content
             home.find { it.msg == HomeData.Banner }
                 ?.let { homeData ->
-                    homeData.itemType = AppAdapter.Type.SLIDER
+                    homeData.itemType = AppAdapter.Type.HOME
+                    add(homeData)
+                }
+
+            //Video Content
+            home.find { it.msg == HomeData.Video }
+                ?.let { homeData ->
+                    homeData.list.onEach {
+                        when(it){
+                            is Video -> it.itemType = AppAdapter.Type.ITEM_VIDEO
+                        }
+                    }
+                    homeData.itemSpacing = resources.getDimension(R.dimen.home_spacing).toInt()
+                    homeData.itemType = AppAdapter.Type.ITEM_HOME
                     add(homeData)
                 }
 

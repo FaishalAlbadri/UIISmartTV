@@ -1,14 +1,19 @@
 package com.faishalbadri.uiismarttv.adapter
 
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.faishalbadri.uiismarttv.adapter.viewholder.LoadingViewHolder
-import com.faishalbadri.uiismarttv.adapter.viewholder.SliderViewHolder
+import com.faishalbadri.uiismarttv.adapter.viewholder.HomeViewHolder
+import com.faishalbadri.uiismarttv.adapter.viewholder.VideoViewHolder
 import com.faishalbadri.uiismarttv.data.dummy.HomeData
+import com.faishalbadri.uiismarttv.data.dummy.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
+import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
+import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
 
 class AppAdapter(
     val items: MutableList<Item> = mutableListOf()
@@ -20,8 +25,13 @@ class AppAdapter(
 
     enum class Type {
         LOADING,
-        SLIDER
+        HOME,
+
+        ITEM_HOME,
+        ITEM_VIDEO
     }
+
+    private val states = mutableMapOf<Int, Parcelable?>()
 
     var isLoading = false
     private var onLoadMoreListener: (() -> Unit)? = null
@@ -36,8 +46,24 @@ class AppAdapter(
                 )
             )
 
-            Type.SLIDER -> SliderViewHolder(
+            Type.HOME -> HomeViewHolder(
                 ContentSliderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            Type.ITEM_HOME -> HomeViewHolder(
+                ItemHomeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            Type.ITEM_VIDEO -> VideoViewHolder(
+                ItemVideoBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -53,7 +79,8 @@ class AppAdapter(
         }
 
         when (holder) {
-            is SliderViewHolder -> holder.bind(items[position] as HomeData)
+            is HomeViewHolder -> holder.bind(items[position] as HomeData)
+            is VideoViewHolder -> holder.bind(items[position] as Video)
         }
     }
 
@@ -65,6 +92,25 @@ class AppAdapter(
     override fun getItemViewType(position: Int): Int = items.getOrNull(position)?.itemType?.ordinal
         ?: Type.LOADING.ordinal
 
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        super.onViewRecycled(holder)
+
+        states[holder.layoutPosition] = when (holder) {
+            is HomeViewHolder -> holder.childRecyclerView?.layoutManager?.onSaveInstanceState()
+            else -> null
+        }
+    }
+
+    fun onSaveInstanceState(recyclerView: RecyclerView) {
+        for (position in items.indices) {
+            val holder = recyclerView.findViewHolderForAdapterPosition(position) ?: continue
+
+            states[position] = when (holder) {
+                is HomeViewHolder -> holder.childRecyclerView?.layoutManager?.onSaveInstanceState()
+                else -> null
+            }
+        }
+    }
 
     fun submitList(list: List<Item>) {
         val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
