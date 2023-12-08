@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.faishalbadri.uiismarttv.data.dummy.BannerResponse
+import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
 
@@ -51,7 +51,7 @@ class AppAdapter(
         }
 
         when (holder) {
-            is SliderViewHolder -> holder.bind(items[position] as BannerResponse)
+            is SliderViewHolder -> holder.bind(items[position] as HomeData)
         }
     }
 

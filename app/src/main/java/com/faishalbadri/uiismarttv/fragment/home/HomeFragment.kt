@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.viewholder.AppAdapter
-import com.faishalbadri.uiismarttv.data.dummy.BannerResponse
+import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -38,10 +37,10 @@ class HomeFragment : Fragment() {
             showLoading(it)
         }
 
-        viewModel.bannerData.observe(viewLifecycleOwner) {
+        viewModel.contentData.observe(viewLifecycleOwner) {
             displayContent(it)
         }
-        viewModel.getVideo()
+        viewModel.getContent()
     }
 
     private fun initializeHome() {
@@ -53,15 +52,15 @@ class HomeFragment : Fragment() {
         binding.root.requestFocus()
     }
 
-    private fun displayContent(home: List<BannerResponse>) {
+    private fun displayContent(home: List<HomeData>) {
         appAdapter.items.apply {
             clear()
 
             //Banner Content
-            home.find { it.msg == "Berhasil" }
-                ?.let { bannerResponse ->
-                    bannerResponse.itemType = AppAdapter.Type.SLIDER
-                    add(bannerResponse)
+            home.find { it.msg == HomeData.Banner }
+                ?.let { homeData ->
+                    homeData.itemType = AppAdapter.Type.SLIDER
+                    add(homeData)
                 }
 
         }

@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.dummy.Banner
-import com.faishalbadri.uiismarttv.data.dummy.BannerResponse
+import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.data.dummy.News
 import com.faishalbadri.uiismarttv.data.dummy.Show
 import com.faishalbadri.uiismarttv.data.dummy.Video
@@ -25,9 +25,9 @@ class SliderViewHolder(
 ) {
 
     private val context = itemView.context
-    private lateinit var banner: BannerResponse
+    private lateinit var banner: HomeData
 
-    fun bind(banner: BannerResponse) {
+    fun bind(banner: HomeData) {
         this.banner = banner
 
         when (_binding) {
