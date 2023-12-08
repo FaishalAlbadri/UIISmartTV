@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.bannerData.observe(viewLifecycleOwner) {
-            displayBanner(it)
+            displayContent(it)
         }
         viewModel.getVideo()
     }
@@ -53,10 +53,11 @@ class HomeFragment : Fragment() {
         binding.root.requestFocus()
     }
 
-    private fun displayBanner(home: List<BannerResponse>) {
+    private fun displayContent(home: List<BannerResponse>) {
         appAdapter.items.apply {
             clear()
 
+            //Banner Content
             home.find { it.msg == "Berhasil" }
                 ?.let { bannerResponse ->
                     bannerResponse.itemType = AppAdapter.Type.SLIDER
@@ -65,12 +66,6 @@ class HomeFragment : Fragment() {
 
         }
         appAdapter.notifyDataSetChanged()
-    }
-
-    fun updateBackground(uri: String?) {
-        Glide.with(requireContext())
-            .load(uri)
-            .into(binding.imgHomeBackground)
     }
 
     fun toNavigate() {

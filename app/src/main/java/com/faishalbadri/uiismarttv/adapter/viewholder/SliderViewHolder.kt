@@ -2,9 +2,11 @@ package com.faishalbadri.uiismarttv.adapter.viewholder
 
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.dummy.Banner
 import com.faishalbadri.uiismarttv.data.dummy.BannerResponse
@@ -33,6 +35,12 @@ class SliderViewHolder(
         }
     }
 
+    private fun updateBackground(imageView: ImageView, uri: String){
+        Glide.with(context)
+            .load(uri)
+            .into(imageView)
+    }
+
     private fun displaySlider(binding: ContentSliderBinding) {
         val selected = banner.list.getOrNull(banner.selectedIndex) as? Show ?: return
 
@@ -48,14 +56,27 @@ class SliderViewHolder(
             is Video -> selected.desc
         }
 
-        binding.btnSliderCheckItOut.apply {
+        binding.llDotsIndicator.apply {
+
+            removeAllViews()
+            repeat(banner.list.size) { index ->
+                val view = View(context).apply {
+                    layoutParams = LinearLayout.LayoutParams(15, 15).apply {
+                        setMargins(10, 0, 10, 0)
+                    }
+                    setBackgroundResource(R.drawable.bg_dot_indicator)
+                    isSelected = (banner.selectedIndex == index)
+                }
+                addView(view)
+            }
+
             setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
                         is HomeFragment -> when (selected) {
-                            is Banner -> fragment.updateBackground(selected.img)
-                            is News -> fragment.updateBackground(selected.img)
-                            is Video -> fragment.updateBackground(selected.img)
+                            is Banner -> updateBackground(binding.imgHomeBackground, selected.img)
+                            is News -> updateBackground(binding.imgHomeBackground, selected.img)
+                            is Video -> updateBackground(binding.imgHomeBackground, selected.img)
                         }
                     }
                 }
@@ -70,9 +91,9 @@ class SliderViewHolder(
                             when (val fragment = context.toActivity()?.getCurrentFragment()) {
                                 is HomeFragment -> when (val it =
                                     banner.list[banner.selectedIndex]) {
-                                    is Banner -> fragment.updateBackground(it.img)
-                                    is News -> fragment.updateBackground(it.img)
-                                    is Video -> fragment.updateBackground(it.img)
+                                    is Banner -> updateBackground(binding.imgHomeBackground, it.img)
+                                    is News -> updateBackground(binding.imgHomeBackground, it.img)
+                                    is Video -> updateBackground(binding.imgHomeBackground, it.img)
                                 }
                             }
                             bindingAdapter?.notifyItemChanged(bindingAdapterPosition)
@@ -87,9 +108,9 @@ class SliderViewHolder(
                                 when (val fragment = context.toActivity()?.getCurrentFragment()) {
                                     is HomeFragment -> when (val it =
                                         banner.list[banner.selectedIndex]) {
-                                        is Banner -> fragment.updateBackground(it.img)
-                                        is News -> fragment.updateBackground(it.img)
-                                        is Video -> fragment.updateBackground(it.img)
+                                        is Banner -> updateBackground(binding.imgHomeBackground, it.img)
+                                        is News -> updateBackground(binding.imgHomeBackground, it.img)
+                                        is Video -> updateBackground(binding.imgHomeBackground, it.img)
                                     }
                                 }
                                 bindingAdapter?.notifyItemChanged(bindingAdapterPosition)
@@ -106,23 +127,7 @@ class SliderViewHolder(
                 }
                 false
             }
-            setOnClickListener {
-                TODO()
-            }
-        }
 
-        binding.llDotsIndicator.apply {
-            removeAllViews()
-            repeat(banner.list.size) { index ->
-                val view = View(context).apply {
-                    layoutParams = LinearLayout.LayoutParams(15, 15).apply {
-                        setMargins(10, 0, 10, 0)
-                    }
-                    setBackgroundResource(R.drawable.bg_dot_indicator)
-                    isSelected = (banner.selectedIndex == index)
-                }
-                addView(view)
-            }
         }
     }
 

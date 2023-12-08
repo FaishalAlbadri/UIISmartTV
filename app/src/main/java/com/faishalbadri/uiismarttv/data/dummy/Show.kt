@@ -33,7 +33,8 @@ class Banner(
     val id: String,
     val title: String,
     val desc: String,
-    val img: String
+    val img: String,
+    val link: String
 ) : Show(), AppAdapter.Item, Cloneable {
 
     override lateinit var itemType: AppAdapter.Type
