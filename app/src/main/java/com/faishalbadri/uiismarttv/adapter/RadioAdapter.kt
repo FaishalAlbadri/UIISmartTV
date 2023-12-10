@@ -3,7 +3,6 @@ package com.faishalbadri.uiismarttv.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
@@ -13,7 +12,6 @@ import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
-@UnstableApi
 class RadioAdapter(radioData: MutableList<RadioData>) :
     RecyclerView.Adapter<RadioAdapter.MyViewHolder>() {
 
@@ -34,7 +32,7 @@ class RadioAdapter(radioData: MutableList<RadioData>) :
 
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is RadioFragment -> fragment.playRadio(data.link, data)
+                        is RadioFragment -> fragment.playRadio(data)
                     }
                 }
             }
