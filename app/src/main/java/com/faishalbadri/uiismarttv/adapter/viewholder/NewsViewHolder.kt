@@ -54,6 +54,7 @@ class NewsViewHolder(
                 .into(imgNews)
 
             txtTitle.text = news.title
+            txtDesc.text = news.desc
         }
     }
 }
