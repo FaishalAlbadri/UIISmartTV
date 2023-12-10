@@ -23,6 +23,8 @@ class HomeFragment : Fragment() {
 
     private val appAdapter = AppAdapter()
 
+    private lateinit var activityHome: HomeActivity
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +45,8 @@ class HomeFragment : Fragment() {
             displayContent(it)
         }
         viewModel.getContent()
+
+        activityHome = getActivity() as HomeActivity
     }
 
     private fun initializeHome() {
@@ -90,5 +94,16 @@ class HomeFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) binding.isLoading.root.visibility =
             View.VISIBLE else binding.isLoading.root.visibility = View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (activityHome.player != null && activityHome.dataRadio != null) {
+            binding.layoutListening.visibility = View.VISIBLE
+            binding.txtListening.text =
+                "Now you're listening to " + activityHome.dataRadio!!.namaRadio
+        } else {
+            binding.layoutListening.visibility = View.GONE
+        }
     }
 }

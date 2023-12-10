@@ -21,10 +21,7 @@ class RadioFragment : Fragment() {
     private val viewModel by viewModels<RadioViewModel>()
     private lateinit var radioAdapter: RadioAdapter
 
-    private var lastRadio = ""
-    var radioName = ""
-    var radioSignal = ""
-    private lateinit var activity: HomeActivity
+    private lateinit var activityHome: HomeActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,14 +42,14 @@ class RadioFragment : Fragment() {
         viewModel.getRadio()
         binding.root.requestFocus()
 
-        activity = getActivity() as HomeActivity
+        activityHome = getActivity() as HomeActivity
     }
 
     private fun setBottomBar() {
-        if (activity.player != null && activity.dataRadio != null) {
+        if (activityHome.player != null && activityHome.dataRadio != null) {
             binding.apply {
-                cvRadio.txtRadioName.text = activity.dataRadio!!.namaRadio
-                cvRadio.txtRadioSignal.text = activity.dataRadio!!.signalRadio
+                cvRadio.txtRadioName.text = activityHome.dataRadio!!.namaRadio
+                cvRadio.txtRadioSignal.text = activityHome.dataRadio!!.signalRadio
                 Glide.with(activity?.applicationContext!!)
                     .load(R.drawable.ic_pause_circle)
                     .into(cvRadio.imgRadioStatus)
@@ -74,22 +71,19 @@ class RadioFragment : Fragment() {
     }
 
     fun playRadio(data: RadioData) {
-        if (activity.player == null) {
+        if (activityHome.player == null) {
             initRadio(data)
         } else {
             setStateStop()
-            activity.releasePlayer()
-            if (lastRadio != data.link) {
+            activityHome.releasePlayer()
+            if (activityHome.dataRadio!!.link != data.link) {
                 initRadio(data)
             }
         }
     }
 
     private fun initRadio(data: RadioData) {
-        lastRadio = data.link
-        radioName = data.namaRadio
-        radioSignal = data.signalRadio
-        activity.initRadio(data)
+        activityHome.initRadio(data)
     }
 
     fun setStateStop() {
@@ -102,10 +96,10 @@ class RadioFragment : Fragment() {
         }
     }
 
-    fun setStateReady() {
+    fun setStateReady(data: RadioData) {
         binding.apply {
-            cvRadio.txtRadioName.text = radioName
-            cvRadio.txtRadioSignal.text = radioSignal
+            cvRadio.txtRadioName.text = data.namaRadio
+            cvRadio.txtRadioSignal.text = data.signalRadio
             Glide.with(activity?.applicationContext!!)
                 .load(R.drawable.ic_pause_circle)
                 .into(cvRadio.imgRadioStatus)

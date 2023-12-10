@@ -118,7 +118,6 @@ class HomeActivity : FragmentActivity() {
             release()
         }
         player = null
-        dataRadio = null
     }
 
     private fun play() {
@@ -136,7 +135,7 @@ class HomeActivity : FragmentActivity() {
 
                 Player.STATE_READY -> {
                     when (val currentFragment = getCurrentFragment()) {
-                        is RadioFragment -> currentFragment.setStateReady()
+                        is RadioFragment -> currentFragment.setStateReady(dataRadio!!)
                         else -> false
                     }
                     play()
@@ -158,6 +157,7 @@ class HomeActivity : FragmentActivity() {
     override fun onStop() {
         super.onStop()
         releasePlayer()
+        dataRadio = null
         when (val currentFragment = getCurrentFragment()) {
             is RadioFragment -> currentFragment.setStateStop()
             else -> false
@@ -167,6 +167,7 @@ class HomeActivity : FragmentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
+        dataRadio = null
         when (val currentFragment = getCurrentFragment()) {
             is RadioFragment -> currentFragment.setStateStop()
             else -> false
