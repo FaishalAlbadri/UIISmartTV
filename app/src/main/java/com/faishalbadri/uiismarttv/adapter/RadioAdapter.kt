@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.dummy.RadioData
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
@@ -39,7 +41,7 @@ class RadioAdapter(radioData: MutableList<RadioData>) :
             binding.apply {
                 Glide.with(itemView.context)
                     .load(data.imageRadio)
-                    .centerCrop()
+                    .transform(CenterCrop(), GranularRoundedCorners(4F, 4F,0F,0F))
                     .into(imgRadio)
                 txtRadio.text = data.namaRadio
                 txtRadioSignal.text = data.signalRadio

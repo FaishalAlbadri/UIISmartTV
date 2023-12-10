@@ -5,6 +5,8 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.dummy.News
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
@@ -51,6 +53,7 @@ class NewsViewHolder(
         binding.apply {
             Glide.with(context)
                 .load(news.img)
+                .transform(CenterCrop(), GranularRoundedCorners(4F, 4F,0F,0F))
                 .into(imgNews)
 
             txtTitle.text = news.title
