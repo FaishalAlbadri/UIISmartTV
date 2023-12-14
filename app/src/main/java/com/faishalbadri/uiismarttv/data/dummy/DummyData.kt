@@ -127,6 +127,12 @@ class DummyData {
             "https://23743.live.streamtheworld.com/PRAMBORS_FM_SC?dist=onlineradiobox"
         ),
         RadioData(
+            "Voks Radio Jogja",
+            "105.3 FM",
+            "https://yt3.googleusercontent.com/NGVvzlBxwQqVHCXQgfLe9Rwv9h51TxIRFU4lNlojkYb6xesY_H27fN0OEEnp8qKGkXC7iWwX0g=s900-c-k-c0x00ffffff-no-rj",
+            "https://svara-stream.radioddns.net:8443/yogyakarta_voksradio"
+        ),
+        RadioData(
             "RRI Pro 3 Jogja",
             "00.0 FM",
             "https://static.mytuner.mobi/media/tvos_radios/NCUHGk4XRJ.png",
@@ -143,12 +149,6 @@ class DummyData {
             "00.0 FM",
             "https://radioindostream.my.id/wp-content/uploads/2021/04/Radio-Unisia-AM-Yogyakarta-600x401.jpg",
             "http://202.162.36.222:8000/;"
-        ),
-        RadioData(
-            "Folks Radio Jogja",
-            "105.3 FM",
-            "https://radioindostream.my.id/wp-content/uploads/2021/04/Radio-Unisia-AM-Yogyakarta-600x401.jpg",
-            "https://svara-stream.radioddns.net:8443/yogyakarta_voksradio"
         )
     )
 }
