@@ -13,7 +13,11 @@
         android:id="@+id/home"
         android:name="com.faishalbadri.uiismarttv.fragment.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_news"
+            app:destination="@id/news" />
+    </fragment>
     <fragment
         android:id="@+id/search"
         android:name="com.faishalbadri.uiismarttv.fragment.search.SearchFragment"
@@ -37,5 +41,10 @@
     <action
         android:id="@+id/action_global_profile"
         app:destination="@id/profile" />
+    <fragment
+        android:id="@+id/news"
+        android:name="com.faishalbadri.uiismarttv.fragment.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
 
 </navigation>

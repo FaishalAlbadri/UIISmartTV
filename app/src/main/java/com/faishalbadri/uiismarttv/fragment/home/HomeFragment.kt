@@ -16,7 +16,7 @@ import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private lateinit var _binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
     private val viewModel by viewModels<HomeViewModel>()
@@ -105,5 +105,10 @@ class HomeFragment : Fragment() {
         } else {
             binding.layoutListening.visibility = View.GONE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -23,7 +23,8 @@ class HomeViewModel : ViewModel() {
 
     fun getContent() {
         _isLoading.value = true
-
+        dataNews.clear()
+        dataVideo.clear()
         dataVideo.addAll(DummyData().dataVideo)
         dataNews.addAll(DummyData().dataNews)
 
