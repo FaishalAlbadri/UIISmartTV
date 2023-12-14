@@ -61,10 +61,24 @@ class HomeActivity : FragmentActivity() {
             when (destination.id) {
                 R.id.search,
                 R.id.home,
-                R.id.radio,
-                R.id.gallery -> binding.navMain.visibility = View.VISIBLE
-
-                else -> binding.navMain.visibility = View.GONE
+                R.id.gallery -> {
+                    binding.navMain.visibility = View.VISIBLE
+                    if (player != null && dataRadio != null) {
+                        binding.layoutListening.visibility = View.VISIBLE
+                    }
+                }
+                R.id.radio -> {
+                    binding.navMain.visibility = View.VISIBLE
+                    if (player != null && dataRadio != null) {
+                        binding.layoutListening.visibility = View.GONE
+                    }
+                }
+                else -> {
+                    binding.navMain.visibility = View.GONE
+                    if (player != null && dataRadio != null) {
+                        binding.layoutListening.visibility = View.VISIBLE
+                    }
+                }
             }
         }
 
@@ -118,10 +132,14 @@ class HomeActivity : FragmentActivity() {
             release()
         }
         player = null
+        binding.layoutListening.visibility = View.GONE
     }
 
     private fun play() {
         player?.playWhenReady = true
+        if (player != null && dataRadio != null) {
+            binding.txtListening.text = "Now you're listening to " + dataRadio!!.namaRadio
+        }
     }
 
     private val playerListener = object : Player.Listener {

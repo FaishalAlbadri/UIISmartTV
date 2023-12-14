@@ -88,23 +88,12 @@ class HomeFragment : Fragment() {
     }
 
     fun toNavigate() {
-        (activity as HomeActivity).binding.navMain.requestFocus()
+        activityHome.binding.navMain.requestFocus()
     }
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) binding.isLoading.root.visibility =
             View.VISIBLE else binding.isLoading.root.visibility = View.GONE
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (activityHome.player != null && activityHome.dataRadio != null) {
-            binding.layoutListening.visibility = View.VISIBLE
-            binding.txtListening.text =
-                "Now you're listening to " + activityHome.dataRadio!!.namaRadio
-        } else {
-            binding.layoutListening.visibility = View.GONE
-        }
     }
 
     override fun onDestroyView() {

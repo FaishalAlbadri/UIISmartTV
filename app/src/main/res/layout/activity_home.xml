@@ -22,6 +22,32 @@
         app:menuGravity="center"
         app:menuSpacing="8dp" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_listening"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/nav_main_fragment"
+        app:layout_constraintRight_toRightOf="@+id/nav_main_fragment"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_listening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_listening"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Now you're listening to Prambors FM" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_main_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -31,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/nav_main"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_listening"
         app:navGraph="@navigation/nav_main_graph"
         />
 
