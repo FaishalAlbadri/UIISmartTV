@@ -9,4 +9,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="radio_info">Radio Streaming Yogyakarta</string>
     <string name="slider_check_it_out">Check it out!</string>
+    <string name="title_berita_informatika">Berita Informatika FTI UII</string>
+    <string name="title_video_informatika">Video Informatika FTI UII</string>
 </resources>

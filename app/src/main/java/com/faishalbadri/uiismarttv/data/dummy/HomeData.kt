@@ -16,7 +16,7 @@ class HomeData(
 
     companion object {
         const val Banner = "Banner"
-        const val Video = "Video Jurusan Informatika FTI UII"
-        const val News = "News"
+        const val Video = "Video Informatika FTI UII"
+        const val News = "Berita Informatika FTI UII"
     }
 }

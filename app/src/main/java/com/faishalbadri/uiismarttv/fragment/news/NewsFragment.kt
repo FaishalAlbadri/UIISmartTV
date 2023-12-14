@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.News
@@ -18,6 +19,7 @@ class NewsFragment : Fragment() {
 
     private val viewModel by viewModels<NewsViewModel>()
     private val appAdapter = AppAdapter()
+    private lateinit var activityHome: HomeActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun setView() {
+        activityHome = getActivity() as HomeActivity
         binding.vgvNews.apply {
             adapter = appAdapter
             setItemSpacing(resources.getDimension(R.dimen.home_spacing).toInt() * 2)
@@ -61,5 +64,16 @@ class NewsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (activityHome.player != null && activityHome.dataRadio != null) {
+            binding.txtListening.visibility = View.VISIBLE
+            binding.txtListening.text =
+                "Now you're listening to " + activityHome.dataRadio!!.namaRadio
+        } else {
+            binding.txtListening.visibility = View.GONE
+        }
     }
 }

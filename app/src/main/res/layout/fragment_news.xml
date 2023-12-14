@@ -6,10 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".fragment.news.NewsFragment">
 
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/title_berita_informatika"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/txt_listening"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_listening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:drawableLeft="@drawable/ic_listening"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_title"
+        tools:text="Now you're listening to Prambors FM" />
+
     <androidx.leanback.widget.VerticalGridView
         android:id="@+id/vgv_news"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="12dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="@dimen/news_spacing"
@@ -18,10 +48,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
         app:numberOfColumns="3"
-        tools:listitem="@layout/item_news_vertical"
-        />
+        tools:listitem="@layout/item_news_vertical" />
 
     <include
         android:id="@+id/is_loading"

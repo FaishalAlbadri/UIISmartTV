@@ -67,12 +67,18 @@ class HomeActivity : FragmentActivity() {
                         binding.layoutListening.visibility = View.VISIBLE
                     }
                 }
+
                 R.id.radio -> {
                     binding.navMain.visibility = View.VISIBLE
-                    if (player != null && dataRadio != null) {
-                        binding.layoutListening.visibility = View.GONE
-                    }
+                    binding.layoutListening.visibility = View.GONE
                 }
+
+                R.id.news,
+                R.id.video -> {
+                    binding.navMain.visibility = View.GONE
+                    binding.layoutListening.visibility = View.GONE
+                }
+
                 else -> {
                     binding.navMain.visibility = View.GONE
                     if (player != null && dataRadio != null) {
