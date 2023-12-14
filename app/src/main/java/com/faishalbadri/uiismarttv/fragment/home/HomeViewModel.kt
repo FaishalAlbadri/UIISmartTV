@@ -25,8 +25,11 @@ class HomeViewModel : ViewModel() {
         _isLoading.value = true
         dataNews.clear()
         dataVideo.clear()
-        dataVideo.addAll(DummyData().dataVideo)
-        dataNews.addAll(DummyData().dataNews)
+
+        for (i in 0 until 5) {
+            dataVideo.add(DummyData().dataVideo.get(i))
+            dataNews.add(DummyData().dataNews.get(i))
+        }
 
         dataVideo.add(Video("0", "", "", "", ""))
         dataNews.add(News("0", "", "", ""))
