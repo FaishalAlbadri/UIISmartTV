@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faishalbadri.uiismarttv.adapter.viewholder.LoadingViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.HomeViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.NewsViewHolder
+import com.faishalbadri.uiismarttv.adapter.viewholder.RadioViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.VideoViewHolder
 import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.data.dummy.News
+import com.faishalbadri.uiismarttv.data.dummy.RadioData
 import com.faishalbadri.uiismarttv.data.dummy.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
+import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
 
 class AppAdapter(
@@ -29,6 +32,7 @@ class AppAdapter(
     enum class Type {
         LOADING,
         HOME,
+        RADIO,
 
         ITEM_HOME,
         ITEM_VIDEO,
@@ -58,6 +62,14 @@ class AppAdapter(
                 )
             )
 
+            Type.RADIO -> RadioViewHolder(
+                ItemRadioBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
             Type.ITEM_HOME -> HomeViewHolder(
                 ItemHomeBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -73,6 +85,7 @@ class AppAdapter(
                     false
                 )
             )
+
             Type.ITEM_NEWS -> NewsViewHolder(
                 ItemNewsBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -93,6 +106,7 @@ class AppAdapter(
             is HomeViewHolder -> holder.bind(items[position] as HomeData)
             is VideoViewHolder -> holder.bind(items[position] as Video)
             is NewsViewHolder -> holder.bind(items[position] as News)
+            is RadioViewHolder -> holder.bind(items[position] as RadioData)
         }
     }
 

@@ -1,8 +1,13 @@
 package com.faishalbadri.uiismarttv.data.dummy
 
-data class RadioData (
+import com.faishalbadri.uiismarttv.adapter.AppAdapter
+
+class RadioData(
     val namaRadio: String,
     val signalRadio: String,
     val imageRadio: String,
     val link: String
-)
+) : AppAdapter.Item, Cloneable {
+    override lateinit var itemType: AppAdapter.Type
+    public override fun clone() = super.clone() as RadioData
+}

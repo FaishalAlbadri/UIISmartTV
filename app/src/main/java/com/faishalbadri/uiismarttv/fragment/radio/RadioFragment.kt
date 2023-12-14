@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.adapter.RadioAdapter
+import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.RadioData
 import com.faishalbadri.uiismarttv.databinding.FragmentRadioBinding
 
@@ -19,7 +19,7 @@ class RadioFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewModel by viewModels<RadioViewModel>()
-    private lateinit var radioAdapter: RadioAdapter
+    private val appAdapter = AppAdapter()
 
     private lateinit var activityHome: HomeActivity
 
@@ -39,9 +39,17 @@ class RadioFragment : Fragment() {
         viewModel.radioData.observe(viewLifecycleOwner) {
             loadData(it)
         }
+        setView()
+    }
+
+    private fun setView() {
+        binding.vgRadio.apply {
+            adapter = appAdapter
+            setItemSpacing(requireContext().resources.getDimension(R.dimen.radio_spacing).toInt())
+        }
+
         viewModel.getRadio()
         binding.root.requestFocus()
-
         activityHome = getActivity() as HomeActivity
     }
 
@@ -58,11 +66,9 @@ class RadioFragment : Fragment() {
     }
 
     private fun loadData(data: MutableList<RadioData>) {
-        radioAdapter = RadioAdapter(data)
-        binding.vgRadio.apply {
-            adapter = radioAdapter
-            setItemSpacing(requireContext().resources.getDimension(R.dimen.radio_spacing).toInt())
-        }
+        appAdapter.submitList(data.onEach {
+            it.itemType = AppAdapter.Type.RADIO
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -119,7 +125,6 @@ class RadioFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        radioAdapter.delete()
     }
 
     override fun onResume() {
