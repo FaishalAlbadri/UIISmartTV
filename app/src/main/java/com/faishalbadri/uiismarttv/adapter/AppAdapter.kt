@@ -21,6 +21,7 @@ import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
+import com.faishalbadri.uiismarttv.databinding.ItemVideoVerticalBinding
 
 class AppAdapter(
     val items: MutableList<Item> = mutableListOf()
@@ -37,6 +38,7 @@ class AppAdapter(
 
         ITEM_HOME,
         ITEM_VIDEO,
+        ITEM_VIDEO_VERTICAL,
         ITEM_NEWS,
         ITEM_NEWS_VERTICAL
     }
@@ -88,6 +90,14 @@ class AppAdapter(
                 )
             )
 
+            Type.ITEM_VIDEO_VERTICAL -> VideoViewHolder(
+                ItemVideoVerticalBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
             Type.ITEM_NEWS -> NewsViewHolder(
                 ItemNewsBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -95,6 +105,7 @@ class AppAdapter(
                     false
                 )
             )
+
             Type.ITEM_NEWS_VERTICAL -> NewsViewHolder(
                 ItemNewsVerticalBinding.inflate(
                     LayoutInflater.from(parent.context),

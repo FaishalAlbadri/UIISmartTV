@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_home_to_news"
             app:destination="@id/news" />
+        <action
+            android:id="@+id/action_home_to_video"
+            app:destination="@id/video" />
     </fragment>
     <fragment
         android:id="@+id/search"
@@ -46,5 +49,10 @@
         android:name="com.faishalbadri.uiismarttv.fragment.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/video"
+        android:name="com.faishalbadri.uiismarttv.fragment.video.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
 
 </navigation>
