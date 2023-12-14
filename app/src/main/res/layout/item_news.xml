@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="@drawable/bg_item_base"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_margin="8dp">
 
     <ImageView
         android:id="@+id/img_news"
         android:layout_width="0dp"
         android:layout_height="150dp"
+        android:background="@drawable/bg_image_selector"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:padding="3dp"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="2:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,13 +25,11 @@
         android:id="@+id/txt_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginRight="8dp"
         android:ellipsize="end"
         android:lines="2"
         android:maxLines="2"
-        android:textColor="@color/black"
+        android:textColor="@color/black_50"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/img_news"
@@ -53,5 +52,15 @@
         app:layout_constraintRight_toRightOf="@+id/txt_title"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
         tools:text="No more description in this video" />
+
+    <include
+        android:id="@+id/is_more"
+        layout="@layout/layout_item_more"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

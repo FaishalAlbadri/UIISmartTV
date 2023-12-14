@@ -18,25 +18,22 @@ class HomeViewModel : ViewModel() {
     private val _contentData = MutableLiveData<List<HomeData>>()
     val contentData: LiveData<List<HomeData>> = _contentData
 
-    private var dataBanner: MutableList<Banner> = ArrayList()
     private var dataVideo: MutableList<Video> = ArrayList()
     private var dataNews: MutableList<News> = ArrayList()
 
     fun getContent() {
         _isLoading.value = true
 
-        dataBanner.addAll(DummyData().dataBanner)
         dataVideo.addAll(DummyData().dataVideo)
         dataNews.addAll(DummyData().dataNews)
 
-        dataBanner.add(Banner("0", "", "", "", ""))
         dataVideo.add(Video("0", "", "", "", ""))
         dataNews.add(News("0", "", "", ""))
 
         var dataResponse: List<HomeData> = listOf(
             HomeData(
                 msg = HomeData.Banner,
-                list = dataBanner
+                list = DummyData().dataBanner
             ),
             HomeData(
                 msg = HomeData.Video,

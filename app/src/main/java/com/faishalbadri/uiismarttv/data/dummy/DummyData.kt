@@ -72,6 +72,18 @@ class DummyData {
             title = "International Program In Informatics Universitas Islam Indonesia",
             desc = "No description has been added to this video.",
             img = "https://i.ytimg.com/vi/F9PedD7Crd4/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhlIGUoZTAP&rs=AOn4CLABNsetp71hts_VBEQrAmZI_np9YQ"
+        ),
+        News(
+            id = "4",
+            title = "International Program In Informatics Universitas Islam Indonesia",
+            desc = "No description has been added to this video.",
+            img = "https://i.ytimg.com/vi/F9PedD7Crd4/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhlIGUoZTAP&rs=AOn4CLABNsetp71hts_VBEQrAmZI_np9YQ"
+        ),
+        News(
+            id = "5",
+            title = "International Program In Informatics Universitas Islam Indonesia",
+            desc = "No description has been added to this video.",
+            img = "https://i.ytimg.com/vi/F9PedD7Crd4/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhlIGUoZTAP&rs=AOn4CLABNsetp71hts_VBEQrAmZI_np9YQ"
         )
     )
 
@@ -98,14 +110,14 @@ class DummyData {
             link = "https://youtu.be/F9PedD7Crd4"
         ),
         Video(
-            id = "3",
+            id = "4",
             title = "International Program In Informatics Universitas Islam Indonesia",
             desc = "No description has been added to this video.",
             img = "https://i.ytimg.com/vi/F9PedD7Crd4/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhlIGUoZTAP&rs=AOn4CLABNsetp71hts_VBEQrAmZI_np9YQ",
             link = "https://youtu.be/F9PedD7Crd4"
         ),
         Video(
-            id = "3",
+            id = "5",
             title = "International Program In Informatics Universitas Islam Indonesia",
             desc = "No description has been added to this video.",
             img = "https://i.ytimg.com/vi/F9PedD7Crd4/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhlIGUoZTAP&rs=AOn4CLABNsetp71hts_VBEQrAmZI_np9YQ",
