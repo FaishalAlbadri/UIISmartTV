@@ -207,6 +207,10 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
     fun stopTextToSpeech(){
         textToSpeech!!.stop()
+        when (val currentFragment = getCurrentFragment()) {
+            is NewsDetailFragment -> currentFragment.setButtonPlayTextToSpeech()
+            else -> false
+        }
     }
 
     fun destroyTextToSpeech() {
