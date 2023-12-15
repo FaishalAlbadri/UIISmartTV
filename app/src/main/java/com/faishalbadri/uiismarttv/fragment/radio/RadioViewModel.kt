@@ -18,6 +18,7 @@ class RadioViewModel : ViewModel() {
 
     fun getRadio() {
         _isLoading.value = true
+        data.clear()
         data.addAll(DummyData().dataRadio)
         _isLoading.value = false
         _radioData.value = data
