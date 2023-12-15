@@ -14,9 +14,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.dummy.News
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
+import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
+import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment
+import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragmentDirections
+import com.faishalbadri.uiismarttv.fragment.news.NewsFragment
+import com.faishalbadri.uiismarttv.fragment.news.NewsFragmentDirections
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
@@ -35,7 +40,44 @@ class NewsViewHolder(
         when (_binding) {
             is ItemNewsBinding -> displayItem(_binding)
             is ItemNewsVerticalBinding -> displayItemVertical(_binding)
+            is ItemNewsRecomendationBinding -> displayItemRecommendation(_binding)
 
+        }
+    }
+
+    private fun displayItemRecommendation(binding: ItemNewsRecomendationBinding) {
+        binding.apply {
+            imgNews.apply {
+                setOnFocusChangeListener { _, hasFocus ->
+                    when {
+                        hasFocus() -> txtTitle.setTextColor(
+                            context.resources.getColor(
+                                R.color.black,
+                                null
+                            )
+                        )
+
+                        else -> txtTitle.setTextColor(
+                            context.resources.getColor(
+                                R.color.black_50,
+                                null
+                            )
+                        )
+                    }
+                }
+                setOnClickListener {
+                    when (val fragment = context.toActivity()?.getCurrentFragment()) {
+                        is NewsDetailFragment -> findNavController().navigate(NewsDetailFragmentDirections.actionNewsDetailSelf(news.id))
+                    }
+                }
+            }
+
+            Glide.with(context)
+                .load(news.img)
+                .transform(CenterCrop(), RoundedCorners(4))
+                .into(imgNews)
+
+            txtTitle.text = news.title
         }
     }
 
@@ -68,7 +110,7 @@ class NewsViewHolder(
                 }
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is HomeFragment -> Log.i("", "")
+                        is NewsFragment -> findNavController().navigate(NewsFragmentDirections.actionNewsToNewsDetail(news.id))
                     }
                 }
             }
@@ -192,7 +234,7 @@ class NewsViewHolder(
                     }
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> Log.i("", "")
+                            is HomeFragment -> findNavController().navigate(HomeFragmentDirections.actionHomeToNewsDetail(news.id))
                         }
                     }
                 }

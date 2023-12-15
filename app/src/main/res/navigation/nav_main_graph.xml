@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_home_to_video"
             app:destination="@id/video" />
+        <action
+            android:id="@+id/action_home_to_newsDetail"
+            app:destination="@id/newsDetail" />
     </fragment>
     <fragment
         android:id="@+id/search"
@@ -48,11 +51,27 @@
         android:id="@+id/news"
         android:name="com.faishalbadri.uiismarttv.fragment.news.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_news_to_newsDetail"
+            app:destination="@id/newsDetail" />
+    </fragment>
     <fragment
         android:id="@+id/video"
         android:name="com.faishalbadri.uiismarttv.fragment.video.VideoFragment"
         android:label="fragment_video"
         tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/newsDetail"
+        android:name="com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment"
+        android:label="fragment_news_detail"
+        tools:layout="@layout/fragment_news_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_newsDetail_self"
+            app:destination="@id/newsDetail" />
+    </fragment>
 
 </navigation>

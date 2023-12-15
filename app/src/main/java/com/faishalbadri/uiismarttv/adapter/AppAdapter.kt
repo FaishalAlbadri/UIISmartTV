@@ -18,6 +18,7 @@ import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
+import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
@@ -40,7 +41,8 @@ class AppAdapter(
         ITEM_VIDEO,
         ITEM_VIDEO_VERTICAL,
         ITEM_NEWS,
-        ITEM_NEWS_VERTICAL
+        ITEM_NEWS_VERTICAL,
+        ITEM_NEWS_RECOMMENDATION
     }
 
     private val states = mutableMapOf<Int, Parcelable?>()
@@ -108,6 +110,13 @@ class AppAdapter(
 
             Type.ITEM_NEWS_VERTICAL -> NewsViewHolder(
                 ItemNewsVerticalBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            Type.ITEM_NEWS_RECOMMENDATION -> NewsViewHolder(
+                ItemNewsRecomendationBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
