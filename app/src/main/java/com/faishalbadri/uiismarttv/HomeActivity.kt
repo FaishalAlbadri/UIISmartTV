@@ -2,6 +2,8 @@ package com.faishalbadri.uiismarttv
 
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.OptIn
@@ -15,16 +17,20 @@ import com.faishalbadri.navigation.setupWithNavController
 import com.faishalbadri.uiismarttv.data.dummy.RadioData
 import com.faishalbadri.uiismarttv.databinding.ActivityHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ContentHeaderMenuMainBinding
+import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment
 import com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
+import java.util.Locale
 
-class HomeActivity : FragmentActivity() {
+class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
     lateinit var binding: ActivityHomeBinding
 
     var player: ExoPlayer? = null
     var dataRadio: RadioData? = null
+    var textToSpeech: TextToSpeech? = null
+    var textToSpeechStatus = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +73,6 @@ class HomeActivity : FragmentActivity() {
                         binding.layoutListening.visibility = View.VISIBLE
                     }
                 }
-
                 R.id.radio -> {
                     binding.navMain.visibility = View.VISIBLE
                     binding.layoutListening.visibility = View.GONE
@@ -78,7 +83,6 @@ class HomeActivity : FragmentActivity() {
                     binding.navMain.visibility = View.GONE
                     binding.layoutListening.visibility = View.GONE
                 }
-
                 else -> {
                     binding.navMain.visibility = View.GONE
                     if (player != null && dataRadio != null) {
@@ -87,7 +91,6 @@ class HomeActivity : FragmentActivity() {
                 }
             }
         }
-
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 when (navController.currentDestination?.id) {
@@ -95,7 +98,6 @@ class HomeActivity : FragmentActivity() {
                         binding.navMain.hasFocus() -> finish()
                         else -> binding.navMain.requestFocus()
                     }
-
                     R.id.search,
                     R.id.radio,
                     R.id.gallery -> when {
@@ -107,7 +109,6 @@ class HomeActivity : FragmentActivity() {
 
                         else -> binding.navMain.requestFocus()
                     }
-
                     else -> {
                         when (val currentFragment = getCurrentFragment()) {
                             is ProfileFragment -> currentFragment.onBackPressed()
@@ -119,6 +120,23 @@ class HomeActivity : FragmentActivity() {
                 }
             }
         })
+        textToSpeech = TextToSpeech(this, this)
+        textToSpeech!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {}
+            override fun onDone(utteranceId: String?) {
+                when (val currentFragment = getCurrentFragment()) {
+                    is NewsDetailFragment -> currentFragment.setButtonPlayTextToSpeech()
+                    else -> false
+                }
+            }
+            override fun onError(utteranceId: String?) {}
+        })
+        textToSpeech!!.setSpeechRate(0.7f)
+    }
+
+    fun initTextToSpeech(text: String){
+        stopPlayer()
+        textToSpeech!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
     }
 
     fun initRadio(data: RadioData) {
@@ -178,8 +196,7 @@ class HomeActivity : FragmentActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    fun stopPlayer() {
         releasePlayer()
         dataRadio = null
         when (val currentFragment = getCurrentFragment()) {
@@ -188,13 +205,37 @@ class HomeActivity : FragmentActivity() {
         }
     }
 
+    fun stopTextToSpeech(){
+        textToSpeech!!.stop()
+    }
+
+    fun destroyTextToSpeech() {
+        if (textToSpeech != null) {
+            stopTextToSpeech()
+            textToSpeech!!.shutdown()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopPlayer()
+        stopTextToSpeech()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        releasePlayer()
-        dataRadio = null
-        when (val currentFragment = getCurrentFragment()) {
-            is RadioFragment -> currentFragment.setStateStop()
-            else -> false
+        stopPlayer()
+        destroyTextToSpeech()
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech!!.setLanguage(Locale("id","ID"))
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                textToSpeechStatus = false
+            } else {
+                textToSpeechStatus = true
+            }
         }
     }
 }

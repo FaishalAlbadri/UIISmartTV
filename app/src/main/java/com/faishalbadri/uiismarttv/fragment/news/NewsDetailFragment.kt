@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.News
@@ -26,6 +28,8 @@ class NewsDetailFragment : Fragment() {
     private val args by navArgs<NewsDetailFragmentArgs>()
     private val viewModel by viewModels<NewsViewModel>()
     private val appAdapter = AppAdapter()
+
+    private lateinit var activityHome: HomeActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +60,7 @@ class NewsDetailFragment : Fragment() {
     }
 
     private fun setView() {
+        activityHome = getActivity() as HomeActivity
         binding.apply {
             hgvNews.apply {
                 adapter = appAdapter
@@ -110,14 +115,20 @@ class NewsDetailFragment : Fragment() {
 
                 setOnClickListener {
                     if (tag.toString() == "play") {
-                        setImageDrawable(
-                            ResourcesCompat.getDrawable(
-                                resources,
-                                R.drawable.ic_stop_circle_outline,
-                                null
+                        if (activityHome.textToSpeechStatus) {
+                            setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.ic_stop_circle_outline,
+                                    null
+                                )
                             )
-                        )
-                        tag = "stop"
+                            tag = "stop"
+                            activityHome.initTextToSpeech(txtDesc.text.toString())
+                        } else {
+                            Toast.makeText(activity, "Tidak dapat memutar audio", Toast.LENGTH_SHORT).show()
+                        }
+
                     } else {
                         setImageDrawable(
                             ResourcesCompat.getDrawable(
@@ -127,6 +138,7 @@ class NewsDetailFragment : Fragment() {
                             )
                         )
                         tag = "play"
+                        activityHome.stopTextToSpeech()
                     }
                 }
             }
@@ -176,9 +188,23 @@ class NewsDetailFragment : Fragment() {
             View.VISIBLE else binding.isLoading.root.visibility = View.GONE
     }
 
+    fun setButtonPlayTextToSpeech() {
+        binding.btnTextToSpeech.apply {
+            setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_play_circle,
+                    null
+                )
+            )
+            tag = "play"
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        activityHome.stopTextToSpeech()
     }
 
 }
