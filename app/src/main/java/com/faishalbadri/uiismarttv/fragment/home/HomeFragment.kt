@@ -1,10 +1,12 @@
 package com.faishalbadri.uiismarttv.fragment.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
@@ -13,6 +15,7 @@ import com.faishalbadri.uiismarttv.data.dummy.HomeData
 import com.faishalbadri.uiismarttv.data.dummy.News
 import com.faishalbadri.uiismarttv.data.dummy.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
+import okhttp3.internal.notifyAll
 
 class HomeFragment : Fragment() {
 
@@ -37,14 +40,23 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeHome()
 
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
+        viewModel.state.observe(viewLifecycleOwner) {state ->
+            when (state) {
+                HomeViewModel.State.Loading -> showLoading(true)
+                is HomeViewModel.State.SuccessLoading -> {
+                    showLoading(false)
+                    displayContent(state.data)
+                }
+                is HomeViewModel.State.FailedLoading -> {
+                    showLoading(false)
+                    Toast.makeText(
+                        requireContext(),
+                        state.error.message ?: "",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
-
-        viewModel.contentData.observe(viewLifecycleOwner) {
-            displayContent(it)
-        }
-        viewModel.getContent()
 
         activityHome = getActivity() as HomeActivity
     }
@@ -59,6 +71,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayContent(home: List<HomeData>) {
+        Log.i("documentUII", home.get(0).document)
         appAdapter.items.apply {
             clear()
 

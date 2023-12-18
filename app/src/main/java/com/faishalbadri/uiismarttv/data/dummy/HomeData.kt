@@ -5,6 +5,7 @@ import com.faishalbadri.uiismarttv.adapter.AppAdapter
 class HomeData(
 
     val msg: String,
+    val document: String,
     val list: List<AppAdapter.Item>
 
 ) : AppAdapter.Item {
@@ -17,6 +18,7 @@ class HomeData(
     companion object {
         const val Banner = "Banner"
         const val Video = "Video Informatika FTI UII"
-        const val News = "Berita Informatika FTI UII"
+        const val News = "Berita Terkini"
+        const val PojokRektor = "Pojok Rektor"
     }
 }

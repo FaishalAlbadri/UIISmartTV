@@ -85,7 +85,7 @@ class VideoViewHolder(
     }
 
     private fun displayItem(binding: ItemVideoBinding) {
-        if (video.id == "0") {
+        if (video.id.equals("")) {
             binding.apply {
                 imgVideo.apply {
                     setFocusable(false)

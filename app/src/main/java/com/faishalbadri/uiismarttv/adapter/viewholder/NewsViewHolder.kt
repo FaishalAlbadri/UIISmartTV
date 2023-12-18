@@ -121,12 +121,11 @@ class NewsViewHolder(
                 .into(imgNews)
 
             txtTitle.text = news.title
-            txtDesc.text = news.desc
         }
     }
 
     private fun displayItem(binding: ItemNewsBinding) {
-        if (news.id == "0") {
+        if (news.id.equals("")) {
             binding.apply {
                 imgNews.apply {
                     setFocusable(false)
@@ -135,7 +134,6 @@ class NewsViewHolder(
                     visibility = View.INVISIBLE
                 }
 
-                txtDesc.visibility = View.INVISIBLE
                 txtTitle.visibility = View.INVISIBLE
 
                 root.apply {
@@ -245,7 +243,6 @@ class NewsViewHolder(
                     .into(imgNews)
 
                 txtTitle.text = news.title
-                txtDesc.text = news.desc
             }
         }
     }
