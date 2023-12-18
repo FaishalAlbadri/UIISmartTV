@@ -4,13 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.faishalbadri.uiismarttv.api.uii.APIServiceUII
-import com.faishalbadri.uiismarttv.data.dummy.Banner
-import com.faishalbadri.uiismarttv.data.dummy.DummyData
+import com.faishalbadri.uiismarttv.api.APIService
 import com.faishalbadri.uiismarttv.data.dummy.HomeData
-import com.faishalbadri.uiismarttv.data.dummy.News
-import com.faishalbadri.uiismarttv.data.dummy.RadioData
-import com.faishalbadri.uiismarttv.data.dummy.Video
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -31,10 +26,8 @@ class HomeViewModel : ViewModel() {
 
     private fun getHome() = viewModelScope.launch(Dispatchers.IO) {
         _state.postValue(State.Loading)
-
         try {
-            val content = APIServiceUII.getHome()
-
+            val content = APIService.getHome()
             _state.postValue(State.SuccessLoading(content))
         } catch (e: Exception) {
             _state.postValue(State.FailedLoading(e))

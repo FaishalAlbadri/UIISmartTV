@@ -126,7 +126,7 @@ class AppAdapter(
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position >= itemCount - 5 && !isLoading) {
+        if (position >= itemCount - 4 && !isLoading) {
             onLoadMoreListener?.invoke()
             isLoading = true
         }

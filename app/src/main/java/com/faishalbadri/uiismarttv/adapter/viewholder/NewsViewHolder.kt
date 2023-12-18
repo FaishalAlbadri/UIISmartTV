@@ -121,6 +121,8 @@ class NewsViewHolder(
                 .into(imgNews)
 
             txtTitle.text = news.title
+            txtDate.text = news.date
+            txtDesc.text = news.desc
         }
     }
 
@@ -190,7 +192,7 @@ class NewsViewHolder(
                     }
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> findNavController().navigate(HomeFragmentDirections.actionHomeToNews())
+                            is HomeFragment -> findNavController().navigate(HomeFragmentDirections.actionHomeToNews(news.title))
                         }
                     }
                 }
@@ -199,7 +201,7 @@ class NewsViewHolder(
                     root.apply {
                         visibility = View.VISIBLE
                     }
-                    txtMore.text = "Lihat Semua Berita"
+                    txtMore.text = "Lihat Semua " + news.title
                 }
 
             }
@@ -243,6 +245,7 @@ class NewsViewHolder(
                     .into(imgNews)
 
                 txtTitle.text = news.title
+                txtDesc.text = news.date
             }
         }
     }

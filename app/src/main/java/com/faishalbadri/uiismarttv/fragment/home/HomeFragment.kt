@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
                         state.error.message ?: "",
                         Toast.LENGTH_SHORT
                     ).show()
+                    Log.e("erorLoadHome: ", state.error.message.toString())
                 }
             }
         }
@@ -71,7 +72,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayContent(home: List<HomeData>) {
-        Log.i("documentUII", home.get(0).document)
         appAdapter.items.apply {
             clear()
 

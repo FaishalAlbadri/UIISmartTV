@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
@@ -17,6 +19,7 @@ class NewsFragment : Fragment() {
     private var _binding: FragmentNewsBinding? = null
     val binding get() = _binding!!
 
+    private val args by navArgs<NewsFragmentArgs>()
     private val viewModel by viewModels<NewsViewModel>()
     private val appAdapter = AppAdapter()
     private lateinit var activityHome: HomeActivity
@@ -31,29 +34,51 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-        viewModel.newsData.observe(viewLifecycleOwner) {
-            loadData(it)
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                NewsViewModel.State.Loading -> showLoading(true)
+                NewsViewModel.State.LoadingMore -> appAdapter.isLoading = true
+                is NewsViewModel.State.SuccessLoadNews -> {
+                    showLoading(false)
+                    loadData(state.data, state.hasMore)
+                }
+                is NewsViewModel.State.FailedLoadNews -> {
+                    showLoading(false)
+                    Toast.makeText(
+                        requireContext(),
+                        state.error.message ?: "",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                else -> {}
+            }
         }
         setView()
     }
 
     private fun setView() {
         activityHome = getActivity() as HomeActivity
+        binding.txtTitle.text = args.category
         binding.vgvNews.apply {
             adapter = appAdapter
             setItemSpacing(resources.getDimension(R.dimen.home_spacing).toInt() * 2)
         }
-        viewModel.getNews()
+        viewModel.getNews(args.category)
         binding.root.requestFocus()
     }
 
-    private fun loadData(news: List<News>) {
+    private fun loadData(news: List<News>, hasMore: Boolean) {
         appAdapter.submitList(news.onEach {
             it.itemType = AppAdapter.Type.ITEM_NEWS_VERTICAL
         })
+        if (hasMore) {
+            appAdapter.setOnLoadMoreListener {
+                viewModel.loadMoreNews(args.category)
+            }
+        } else {
+            appAdapter.setOnLoadMoreListener(null)
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

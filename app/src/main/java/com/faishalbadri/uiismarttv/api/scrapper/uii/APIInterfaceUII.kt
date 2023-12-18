@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.api.uii
+package com.faishalbadri.uiismarttv.api.scrapper.uii
 
 import com.faishalbadri.uiismarttv.utils.jsoup.JsoupConverterFactory
 import okhttp3.OkHttpClient
@@ -31,7 +31,7 @@ interface APIInterfaceUII {
     @GET(".")
     suspend fun getHome(): Document
 
-    @GET("berita/page/{page}")
+    @GET("berita/page/{page}/")
     suspend fun getNews(@Path("page") page: Int): Document
 
     @GET("pojok-rektor/page/{page}")

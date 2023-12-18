@@ -22,21 +22,46 @@
         tools:src="@drawable/logo_uii" />
 
     <TextView
-        android:id="@+id/txt_title"
+        android:id="@+id/txt_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:maxLines="1"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_title"
+        app:layout_constraintRight_toRightOf="@+id/txt_title"
+        app:layout_constraintTop_toBottomOf="@+id/img_news" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/black_50"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/img_news"
         app:layout_constraintRight_toRightOf="@+id/img_news"
-        app:layout_constraintTop_toBottomOf="@+id/img_news"
+        app:layout_constraintTop_toBottomOf="@+id/txt_date"
         tools:text="Universitas islam indonesia jurusan informatika" />
+
+    <TextView
+        android:id="@+id/txt_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:ellipsize="end"
+        android:lines="2"
+        android:maxLines="2"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_title"
+        app:layout_constraintRight_toRightOf="@+id/txt_title"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        tools:text="No more description in this video" />
 
     <include
         android:id="@+id/is_more"

@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.api.uii
+package com.faishalbadri.uiismarttv.api.scrapper.uii
 
 import com.faishalbadri.uiismarttv.data.dummy.Banner
 import com.faishalbadri.uiismarttv.data.dummy.DummyData
@@ -42,24 +42,27 @@ object APIServiceUII {
                 ?.text() ?: ""
             val img = it.selectFirst("div.bdpp-post-img-bg")?.attr("style")
                 ?.replace("background-image:url(", "")?.replace(")", "") ?: ""
+            val date = it.selectFirst("span")!!.text()
             if (countData <= 3) {
                 val id = it.selectFirst("a")
-                    ?.attr("href") ?: ""
+                    ?.attr("href")?.replace("https://www.uii.ac.id/", "")?.replace("/", "") ?: ""
                 dataNews.add(
                     News(
                         id = id,
                         title = title,
+                        date= date,
                         desc = "",
                         img = img
                     )
                 )
             } else {
                 val id = it.selectFirst("h2.bdpp-post-title > a")
-                    ?.attr("href") ?: ""
+                    ?.attr("href")?.replace("https://www.uii.ac.id/", "")?.replace("/", "") ?: ""
                 dataPojokRektor.add(
                     News(
                         id = id,
                         title = title,
+                        date= date,
                         desc = "",
                         img = img
                     )
@@ -71,32 +74,70 @@ object APIServiceUII {
             dataVideo.add(DummyData().dataVideo.get(i))
         }
         dataVideo.add(Video("", "", "", "", ""))
-        dataNews.add(News("", "", "", ""))
-        dataPojokRektor.add(News("", "", "", ""))
+        dataNews.add(News("", HomeData.News, "", "",""))
+        dataPojokRektor.add(News("", HomeData.PojokRektor, "", "",""))
 
         val homeData = mutableListOf(
             HomeData(
                 msg = HomeData.Banner,
-                document = document.toString(),
                 list = dataBanner
             ),
             HomeData(
                 msg = HomeData.Video,
-                document = document.toString(),
                 list = dataVideo
             ),
             HomeData(
                 msg = HomeData.News,
-                document = document.toString(),
                 list = dataNews
             ),
             HomeData(
                 msg = HomeData.PojokRektor,
-                document = document.toString(),
                 list = dataPojokRektor
             )
         )
 
         return homeData
+    }
+
+    suspend fun getNews(page: Int = 1): List<News> {
+        val document = service.getNews(page)
+        val newsData =
+            document.select("div.bdpp-post-list-main")
+                .map {
+                    News(
+                        id = it.selectFirst("div.bdpp-post-img-bg > a")
+                            ?.attr("href")?.replace("https://www.uii.ac.id/", "")?.replace("/", "")
+                            ?: "",
+                        title = it.selectFirst("h2.bdpp-post-title")
+                            ?.text() ?: "",
+                        date= it.selectFirst("span")!!.text(),
+                        desc = it.selectFirst("div.bdpp-post-content > div.bdpp-post-desc")
+                            ?.text() ?: "",
+                        img = it.selectFirst("div.bdpp-post-img-bg img")
+                            ?.attr("src") ?: ""
+                    )
+                }
+        return newsData
+    }
+
+    suspend fun getPojokRektor(page: Int = 1): List<News> {
+        val document = service.getPojokRektor(page)
+        val newsData =
+            document.select("div.bdpp-post-grid")
+                .map {
+                    News(
+                        id = it.selectFirst("h2.bdpp-post-title a")
+                            ?.attr("href")?.replace("https://www.uii.ac.id/", "")?.replace("/", "")
+                            ?: "",
+                        title = it.selectFirst("h2.bdpp-post-title")
+                            ?.text() ?: "",
+                        date= it.selectFirst("span")!!.text(),
+                        desc = it.selectFirst("div.bdpp-post-desc")
+                            ?.text() ?: "",
+                        img = it.selectFirst("div.bdpp-post-img-bg")?.attr("style")
+                            ?.replace("background-image:url(", "")?.replace(")", "") ?: ""
+                    )
+                }
+        return newsData
     }
 }

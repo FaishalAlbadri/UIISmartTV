@@ -21,6 +21,7 @@ class News(
     val id: String,
     val title: String,
     val desc: String,
+    val date: String,
     val img: String
 ) : Show(), AppAdapter.Item, Cloneable {
 

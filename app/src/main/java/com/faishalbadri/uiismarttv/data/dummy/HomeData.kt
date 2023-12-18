@@ -5,7 +5,6 @@ import com.faishalbadri.uiismarttv.adapter.AppAdapter
 class HomeData(
 
     val msg: String,
-    val document: String,
     val list: List<AppAdapter.Item>
 
 ) : AppAdapter.Item {

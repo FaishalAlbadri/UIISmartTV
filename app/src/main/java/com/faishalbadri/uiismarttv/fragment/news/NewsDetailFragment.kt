@@ -41,15 +41,15 @@ class NewsDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-        viewModel.newsDetailData.observe(viewLifecycleOwner) {
-            loadData(it)
-        }
-        viewModel.newsData.observe(viewLifecycleOwner){
-            loadRecommendation(it)
-        }
+//        viewModel.isLoading.observe(viewLifecycleOwner) {
+//            showLoading(it)
+//        }
+//        viewModel.newsDetailData.observe(viewLifecycleOwner) {
+//            loadData(it)
+//        }
+//        viewModel.newsData.observe(viewLifecycleOwner){
+//            loadRecommendation(it)
+//        }
         setView()
     }
 
