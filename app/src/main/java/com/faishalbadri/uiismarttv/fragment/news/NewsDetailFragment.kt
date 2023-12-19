@@ -16,7 +16,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.News
 import com.faishalbadri.uiismarttv.databinding.FragmentNewsDetailBinding
 
@@ -27,7 +26,6 @@ class NewsDetailFragment : Fragment() {
 
     private val args by navArgs<NewsDetailFragmentArgs>()
     private val viewModel by viewModels<NewsViewModel>()
-    private val appAdapter = AppAdapter()
 
     private lateinit var activityHome: HomeActivity
 
@@ -41,32 +39,30 @@ class NewsDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel.isLoading.observe(viewLifecycleOwner) {
-//            showLoading(it)
-//        }
-//        viewModel.newsDetailData.observe(viewLifecycleOwner) {
-//            loadData(it)
-//        }
-//        viewModel.newsData.observe(viewLifecycleOwner){
-//            loadRecommendation(it)
-//        }
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                NewsViewModel.State.Loading -> showLoading(true)
+                is NewsViewModel.State.SuccessLoadDetailNews -> {
+                    showLoading(false)
+                    loadData(state.data)
+                }
+                is NewsViewModel.State.FailedLoadDetailNews -> {
+                    showLoading(false)
+                    Toast.makeText(
+                        requireContext(),
+                        state.error.message ?: "",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {}
+            }
+        }
         setView()
-    }
-
-    private fun loadRecommendation(news: List<News>) {
-        appAdapter.submitList(news.onEach {
-            it.itemType = AppAdapter.Type.ITEM_NEWS_RECOMMENDATION
-        })
     }
 
     private fun setView() {
         activityHome = getActivity() as HomeActivity
         binding.apply {
-            hgvNews.apply {
-                adapter = appAdapter
-                setItemSpacing(resources.getDimension(R.dimen.recommendation_spacing).toInt() * 2)
-            }
-
             btnTextToSpeech.apply {
                 requestFocus()
                 setImageDrawable(
@@ -169,7 +165,6 @@ class NewsDetailFragment : Fragment() {
         }
 
         viewModel.getDetailNews(args.id)
-        viewModel.getNewsRecommendation()
     }
 
     private fun loadData(dataNews: News) {
@@ -180,6 +175,7 @@ class NewsDetailFragment : Fragment() {
                 .into(imgNews)
             txtTitle.text = dataNews.title
             txtDesc.text = dataNews.desc
+            txtDate.text = dataNews.date
         }
     }
 
@@ -206,5 +202,4 @@ class NewsDetailFragment : Fragment() {
         _binding = null
         activityHome.stopTextToSpeech()
     }
-
 }

@@ -72,11 +72,12 @@ class NewsViewModel() : ViewModel() {
         }
     }
 
-    fun getDetailNews(id: String) {
-
-    }
-
-    fun getNewsRecommendation() {
-
+    fun getDetailNews(id: String) = viewModelScope.launch(Dispatchers.IO) {
+        _state.postValue(State.Loading)
+        try {
+            _state.postValue(State.SuccessLoadDetailNews(APIService.getDetailNews(id)))
+        } catch (e: Exception) {
+            _state.postValue(State.FailedLoadDetailNews(e))
+        }
     }
 }

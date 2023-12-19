@@ -122,4 +122,15 @@ object APIService {
         }
         return newsData
     }
+
+    suspend fun getDetailNews(id: String): News {
+        val news = service.getDetailNews(id)
+        var newsData: News? = null
+        if (news.isSuccessful) {
+            news.body()!!.forEach {
+                newsData = it
+            }
+        }
+        return newsData!!
+    }
 }

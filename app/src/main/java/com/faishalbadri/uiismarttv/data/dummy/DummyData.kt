@@ -130,7 +130,7 @@ class DummyData {
         RadioData(
             "Unisi Jogja",
             "104.5 FM",
-            "http://jogjastreamers.com/cni-content/uploads/modules/radio/20210531114736.png",
+            "https://pbs.twimg.com/profile_images/1212065846845067265/nAMpYJkH_400x400.jpg",
             "https://studio1.indostreamers.com:8002/stream/1/"
         ),
         RadioData(
