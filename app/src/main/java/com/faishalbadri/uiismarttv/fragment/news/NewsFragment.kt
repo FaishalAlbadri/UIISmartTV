@@ -1,6 +1,7 @@
 package com.faishalbadri.uiismarttv.fragment.news
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.dummy.News
 import com.faishalbadri.uiismarttv.databinding.FragmentNewsBinding
+import com.faishalbadri.uiismarttv.utils.viewModelsFactory
 
 class NewsFragment : Fragment() {
 
@@ -34,12 +36,14 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setView()
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 NewsViewModel.State.Loading -> showLoading(true)
                 NewsViewModel.State.LoadingMore -> appAdapter.isLoading = true
                 is NewsViewModel.State.SuccessLoadNews -> {
                     showLoading(false)
+                    appAdapter.isLoading = false
                     loadData(state.data, state.hasMore)
                 }
                 is NewsViewModel.State.FailedLoadNews -> {
@@ -50,21 +54,21 @@ class NewsFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
                 else -> {}
             }
         }
-        setView()
     }
 
     private fun setView() {
         activityHome = getActivity() as HomeActivity
+        if (appAdapter.items.size == 0) {
+            viewModel.getNews(args.category)
+        }
         binding.txtTitle.text = args.category
         binding.vgvNews.apply {
             adapter = appAdapter
             setItemSpacing(resources.getDimension(R.dimen.home_spacing).toInt() * 2)
         }
-        viewModel.getNews(args.category)
         binding.root.requestFocus()
     }
 

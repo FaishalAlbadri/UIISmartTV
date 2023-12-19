@@ -25,7 +25,8 @@ import java.util.Locale
 
 class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
-    lateinit var binding: ActivityHomeBinding
+    private var _binding: ActivityHomeBinding? = null
+    val binding: ActivityHomeBinding get() = _binding!!
 
     var player: ExoPlayer? = null
     var dataRadio: RadioData? = null
@@ -34,7 +35,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment = this.supportFragmentManager

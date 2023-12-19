@@ -10,7 +10,7 @@ import com.faishalbadri.uiismarttv.data.dummy.News
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NewsViewModel : ViewModel() {
+class NewsViewModel() : ViewModel() {
 
     private var page = 1
 
@@ -30,11 +30,13 @@ class NewsViewModel : ViewModel() {
         _state.postValue(State.Loading)
         try {
             page = 1
+            val api: List<News>
             if (category.equals(HomeData.News)) {
-                _state.postValue(State.SuccessLoadNews(APIService.getNews(), true))
+                api = APIService.getNews()
             } else {
-                _state.postValue(State.SuccessLoadNews(APIService.getPojokRektor(), true))
+                api = APIService.getPojokRektor()
             }
+            _state.postValue(State.SuccessLoadNews(api, true))
         } catch (e: Exception) {
             _state.postValue(State.FailedLoadNews(e))
         }
@@ -45,7 +47,6 @@ class NewsViewModel : ViewModel() {
         if (currentState is State.SuccessLoadNews) {
             _state.postValue(State.LoadingMore)
             try {
-
                 if (category.equals(HomeData.News)) {
                     val news = APIService.getNews(page + 1)
                     page += 1
