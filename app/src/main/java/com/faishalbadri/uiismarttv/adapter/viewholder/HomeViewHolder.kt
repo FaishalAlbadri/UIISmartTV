@@ -1,6 +1,5 @@
 package com.faishalbadri.uiismarttv.adapter.viewholder
 
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +65,6 @@ class HomeViewHolder(
         Glide.with(context)
             .load(uri)
             .into(imageView)
-        Log.i("imagebanner", uri)
     }
 
     private fun displaySlider(binding: ContentSliderBinding) {
