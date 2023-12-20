@@ -1,5 +1,6 @@
 package com.faishalbadri.uiismarttv
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -11,15 +12,18 @@ import androidx.fragment.app.FragmentActivity
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.activity.viewModels
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.NavHostFragment
 import com.faishalbadri.navigation.setupWithNavController
 import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.databinding.ActivityHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ContentHeaderMenuMainBinding
+import com.faishalbadri.uiismarttv.fragment.location.LocationViewModel
 import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment
 import com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
+import com.faishalbadri.uiismarttv.utils.ViewModelFactory
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import java.util.Locale
 
@@ -32,16 +36,25 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     var dataRadio: RadioData? = null
     var textToSpeech: TextToSpeech? = null
     var textToSpeechStatus = false
+    var textToSpeechPlayStatus = false
+    lateinit var viewModel: ViewModelFactory
+    val mainViewModel: LocationViewModel by viewModels { viewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelFactory.getInstance(this)
 
         val navHostFragment = this.supportFragmentManager
             .findFragmentById(R.id.nav_main_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        navController.navigate(R.id.home)
+
+        mainViewModel.getLocation().observe(this) {
+            if (it.provinsi.isNotEmpty()) {
+                navController.navigate(R.id.home)
+            }
+        }
 
         binding.navMain.setupWithNavController(navController)
 
@@ -61,7 +74,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                 }
 
                 setOnClickListener {
-                    navController.navigate(NavMainGraphDirections.actionGlobalProfile())
+                    navController.navigate(R.id.profile)
                 }
             }
 
@@ -123,14 +136,21 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
         })
         textToSpeech = TextToSpeech(this, this)
         textToSpeech!!.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {}
+            override fun onStart(utteranceId: String?) {
+                textToSpeechPlayStatus = true
+            }
             override fun onDone(utteranceId: String?) {
                 when (val currentFragment = getCurrentFragment()) {
-                    is NewsDetailFragment -> currentFragment.setButtonPlayTextToSpeech()
+                    is NewsDetailFragment -> {
+                        textToSpeechPlayStatus = false
+                        currentFragment.setButtonPlayTextToSpeech()
+                    }
                     else -> false
                 }
             }
-            override fun onError(utteranceId: String?) {}
+            override fun onError(utteranceId: String?) {
+                textToSpeechPlayStatus = false
+            }
         })
         textToSpeech!!.setSpeechRate(0.7f)
     }
@@ -198,11 +218,13 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     }
 
     fun stopPlayer() {
-        releasePlayer()
-        dataRadio = null
-        when (val currentFragment = getCurrentFragment()) {
-            is RadioFragment -> currentFragment.setStateStop()
-            else -> false
+        if (player != null && dataRadio != null) {
+            releasePlayer()
+            dataRadio = null
+            when (val currentFragment = getCurrentFragment()) {
+                is RadioFragment -> currentFragment.setStateStop()
+                else -> false
+            }
         }
     }
 
@@ -215,7 +237,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     }
 
     fun destroyTextToSpeech() {
-        if (textToSpeech != null) {
+        if (textToSpeechPlayStatus) {
             stopTextToSpeech()
             textToSpeech!!.shutdown()
         }

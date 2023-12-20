@@ -1,7 +1,9 @@
 package com.faishalbadri.uiismarttv.api
 
+import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.Video
+import com.faishalbadri.uiismarttv.data.remote.adzan.AdzanResponse
 import com.faishalbadri.uiismarttv.data.remote.home.HomeResponse
 import com.faishalbadri.uiismarttv.data.remote.video.VideoResponse
 import okhttp3.OkHttpClient
@@ -13,6 +15,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 
@@ -65,4 +68,21 @@ interface APIInterface {
     suspend fun getDetailNews(
         @Field("id") id: String,
     ): Response<List<News>>
+
+    @FormUrlEncoded
+    @POST("adzan/")
+    suspend fun getAdzan(
+        @Field("provinsi") provinsi: String,
+        @Field("kota") kota: String,
+        @Field("date") date: Date
+    ): Response<AdzanResponse>
+
+    @GET("adzan/provinsi")
+    suspend fun getProvinsi(): Response<List<Adzan>>
+
+    @FormUrlEncoded
+    @POST("adzan/kota")
+    suspend fun getKota(
+        @Field("provinsi") provinsi: String,
+    ): Response<List<Adzan>>
 }

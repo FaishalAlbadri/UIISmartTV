@@ -43,3 +43,13 @@ class Banner(
 
     public override fun clone() = super.clone() as Banner
 }
+
+class Adzan(
+    val id: String,
+    val value: String
+) : Show(), AppAdapter.Item, Cloneable {
+
+    override lateinit var itemType: AppAdapter.Type
+
+    public override fun clone() = super.clone() as Adzan
+}

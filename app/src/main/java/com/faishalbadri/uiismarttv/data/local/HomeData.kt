@@ -15,6 +15,7 @@ class HomeData(
     override var itemType = AppAdapter.Type.ITEM_HOME
 
     companion object {
+        const val Adzan = "Waktu Sholat"
         const val Banner = "Banner"
         const val Video = "Video Youtube UII"
         const val News = "Berita Terkini"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main_graph"
-    app:startDestination="@id/home">
+    app:startDestination="@id/location">
 
     <action
         android:id="@+id/action_global_homeFragment"
@@ -44,9 +44,6 @@
         android:name="com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <action
-        android:id="@+id/action_global_profile"
-        app:destination="@id/profile" />
     <fragment
         android:id="@+id/news"
         android:name="com.faishalbadri.uiismarttv.fragment.news.NewsFragment"
@@ -75,6 +72,22 @@
         <action
             android:id="@+id/action_newsDetail_self"
             app:destination="@id/newsDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/location"
+        android:name="com.faishalbadri.uiismarttv.fragment.location.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location">
+        <argument
+            android:name="provinsi"
+            android:defaultValue="0"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_location_to_home"
+            app:destination="@id/home" />
+        <action
+            android:id="@+id/action_location_self"
+            app:destination="@id/location" />
     </fragment>
 
 </navigation>

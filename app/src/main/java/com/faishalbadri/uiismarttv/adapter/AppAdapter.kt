@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.faishalbadri.uiismarttv.adapter.viewholder.LoadingViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.HomeViewHolder
+import com.faishalbadri.uiismarttv.adapter.viewholder.LocationViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.NewsViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.RadioViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.VideoViewHolder
+import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.RadioData
@@ -17,6 +19,7 @@ import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
+import com.faishalbadri.uiismarttv.databinding.ItemLocationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
@@ -42,7 +45,9 @@ class AppAdapter(
         ITEM_VIDEO_VERTICAL,
         ITEM_NEWS,
         ITEM_NEWS_VERTICAL,
-        ITEM_NEWS_RECOMMENDATION
+        ITEM_NEWS_RECOMMENDATION,
+
+        ITEM_LOCATION
     }
 
     private val states = mutableMapOf<Int, Parcelable?>()
@@ -122,6 +127,14 @@ class AppAdapter(
                     false
                 )
             )
+
+            Type.ITEM_LOCATION -> LocationViewHolder(
+                ItemLocationBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
 
 
@@ -136,6 +149,7 @@ class AppAdapter(
             is VideoViewHolder -> holder.bind(items[position] as Video)
             is NewsViewHolder -> holder.bind(items[position] as News)
             is RadioViewHolder -> holder.bind(items[position] as RadioData)
+            is LocationViewHolder -> holder.bind(items[position] as Adzan)
         }
     }
 

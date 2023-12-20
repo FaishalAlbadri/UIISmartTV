@@ -11,6 +11,7 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
+import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.Banner
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
@@ -75,12 +76,14 @@ class HomeViewHolder(
             is Banner -> selected.title
             is News -> selected.title
             is Video -> selected.title
+            is Adzan -> selected.value
         }
 
         binding.txtSliderDesc.text = when (selected) {
             is Banner -> selected.desc
             is News -> selected.desc
             is Video -> selected.desc
+            is Adzan -> selected.value
         }
 
         binding.llDotsIndicator.apply {
@@ -104,6 +107,7 @@ class HomeViewHolder(
                             is Banner -> updateBackground(binding.imgHomeBackground, selected.img)
                             is News -> updateBackground(binding.imgHomeBackground, selected.img)
                             is Video -> updateBackground(binding.imgHomeBackground, selected.img)
+                            is Adzan -> updateBackground(binding.imgHomeBackground, selected.value)
                         }
                     }
                 }
@@ -121,6 +125,7 @@ class HomeViewHolder(
                                     is Banner -> updateBackground(binding.imgHomeBackground, it.img)
                                     is News -> updateBackground(binding.imgHomeBackground, it.img)
                                     is Video -> updateBackground(binding.imgHomeBackground, it.img)
+                                    is Adzan -> updateBackground(binding.imgHomeBackground, it.value)
                                 }
                             }
                             bindingAdapter?.notifyItemChanged(bindingAdapterPosition)

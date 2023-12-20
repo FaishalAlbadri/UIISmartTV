@@ -1,5 +1,6 @@
 package com.faishalbadri.uiismarttv.api
 
+import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.Banner
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
@@ -153,6 +154,38 @@ object APIService {
             }
         }
         return newsData
+    }
+
+    suspend fun getLocationProvinsi(): List<Adzan> {
+        val provinsi = service.getProvinsi()
+        val provinsiData: MutableList<Adzan> = mutableListOf()
+        if (provinsi.isSuccessful) {
+            provinsi.body()!!.forEach {
+                provinsiData.add(
+                    Adzan(
+                        id = it.id,
+                        value = it.value
+                    )
+                )
+            }
+        }
+        return provinsiData
+    }
+
+    suspend fun getLocationKota(provinsi: String): List<Adzan> {
+        val kota = service.getKota(provinsi)
+        val kotaData: MutableList<Adzan> = mutableListOf()
+        if (kota.isSuccessful) {
+            kota.body()!!.forEach {
+                kotaData.add(
+                    Adzan(
+                        id = it.id,
+                        value = it.value
+                    )
+                )
+            }
+        }
+        return kotaData
     }
 
     suspend fun getDetailNews(id: String): News {
