@@ -16,7 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.data.dummy.News
+import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.databinding.FragmentNewsDetailBinding
 
 class NewsDetailFragment : Fragment() {

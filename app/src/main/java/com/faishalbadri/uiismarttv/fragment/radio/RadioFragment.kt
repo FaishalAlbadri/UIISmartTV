@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
-import com.faishalbadri.uiismarttv.data.dummy.RadioData
+import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.databinding.FragmentRadioBinding
 
 class RadioFragment : Fragment() {

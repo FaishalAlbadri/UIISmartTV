@@ -1,10 +1,9 @@
 package com.faishalbadri.uiismarttv.api
 
-import com.faishalbadri.uiismarttv.data.dummy.Banner
-import com.faishalbadri.uiismarttv.data.dummy.DummyData
-import com.faishalbadri.uiismarttv.data.dummy.HomeData
-import com.faishalbadri.uiismarttv.data.dummy.News
-import com.faishalbadri.uiismarttv.data.dummy.Video
+import com.faishalbadri.uiismarttv.data.local.Banner
+import com.faishalbadri.uiismarttv.data.local.HomeData
+import com.faishalbadri.uiismarttv.data.local.News
+import com.faishalbadri.uiismarttv.data.local.Video
 
 object APIService {
 
@@ -18,6 +17,7 @@ object APIService {
             val listBanner = homeResponse!!.banner
             val listNews = homeResponse!!.news
             val listPojokRektor = homeResponse!!.pojokRektor
+            val listVideo = homeResponse!!.video
 
             val dataBanner: MutableList<Banner> = ArrayList()
             if (listBanner!!.isNotEmpty()) {
@@ -67,10 +67,22 @@ object APIService {
             dataPojokRektor.add(News("", HomeData.PojokRektor, "", "", ""))
 
             val dataVideo: MutableList<Video> = ArrayList()
-            for (i in 0 until 5) {
-                dataVideo.add(DummyData().dataVideo.get(i))
+            if (listVideo!!.isNotEmpty()) {
+                listVideo.forEach {
+                    dataVideo.add(
+                        Video(
+                            id = it!!.id,
+                            title = it.title,
+                            desc = it.desc,
+                            img = it.img,
+                            link = it.link,
+                            date = it.date,
+                        )
+                    )
+                }
             }
-            dataVideo.add(Video("", "", "", "", ""))
+            dataVideo.add(Video("", "", "", "", "", ""))
+
             homeData = mutableListOf(
                 HomeData(
                     msg = HomeData.Banner,
@@ -91,6 +103,26 @@ object APIService {
             )
         }
         return homeData
+    }
+
+    suspend fun getVideo(maxResult: Int = 50): List<Video> {
+        val video = service.getVideo(maxResult)
+        val videoData: MutableList<Video> = mutableListOf()
+        if (video.isSuccessful) {
+            video.body()!!.video!!.forEach {
+                videoData.add(
+                    Video(
+                        id = it!!.id,
+                        title = it.title,
+                        desc = it.desc,
+                        img = it.img,
+                        link = it.link,
+                        date = it.date,
+                    )
+                )
+            }
+        }
+        return videoData
     }
 
     suspend fun getNews(page: Int = 1): List<News> {

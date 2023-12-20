@@ -1,8 +1,8 @@
-package com.faishalbadri.uiismarttv.data.real.home
+package com.faishalbadri.uiismarttv.data.remote.home
 
 import com.google.gson.annotations.SerializedName
 
-data class PojokRektorItem(
+data class NewsItem(
 
 	@field:SerializedName("date")
 	val date: String,

@@ -14,7 +14,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.NavHostFragment
 import com.faishalbadri.navigation.setupWithNavController
-import com.faishalbadri.uiismarttv.data.dummy.RadioData
+import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.databinding.ActivityHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ContentHeaderMenuMainBinding
 import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment

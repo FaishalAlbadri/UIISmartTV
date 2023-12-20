@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
-import com.faishalbadri.uiismarttv.data.dummy.Video
+import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentVideoBinding
 
 class VideoFragment : Fragment() {
@@ -31,11 +32,25 @@ class VideoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-        viewModel.videoData.observe(viewLifecycleOwner) {
-            loadData(it)
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                VideoViewModel.State.Loading -> showLoading(true)
+                is VideoViewModel.State.SuccessLoadVideo -> {
+                    showLoading(false)
+                    loadData(state.data)
+                }
+
+                is VideoViewModel.State.FailedLoadVideo -> {
+                    showLoading(false)
+                    Toast.makeText(
+                        requireContext(),
+                        state.error.message ?: "",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                else -> {}
+            }
         }
         setView()
     }
@@ -46,7 +61,6 @@ class VideoFragment : Fragment() {
             adapter = appAdapter
             setItemSpacing(resources.getDimension(R.dimen.home_spacing).toInt() * 2)
         }
-        viewModel.getVideo()
         binding.root.requestFocus()
     }
 

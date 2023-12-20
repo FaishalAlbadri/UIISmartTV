@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.data.dummy
+package com.faishalbadri.uiismarttv.data.local
 
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 
@@ -16,7 +16,7 @@ class HomeData(
 
     companion object {
         const val Banner = "Banner"
-        const val Video = "Video Informatika FTI UII"
+        const val Video = "Video Youtube UII"
         const val News = "Berita Terkini"
         const val PojokRektor = "Pojok Rektor"
     }

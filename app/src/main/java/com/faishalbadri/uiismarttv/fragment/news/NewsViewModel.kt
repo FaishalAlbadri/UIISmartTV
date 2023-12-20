@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.faishalbadri.uiismarttv.api.APIService
-import com.faishalbadri.uiismarttv.data.dummy.HomeData
-import com.faishalbadri.uiismarttv.data.dummy.News
+import com.faishalbadri.uiismarttv.data.local.HomeData
+import com.faishalbadri.uiismarttv.data.local.News
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

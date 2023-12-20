@@ -12,13 +12,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.data.dummy.Video
-import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
+import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoVerticalBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
-import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
@@ -81,6 +79,7 @@ class VideoViewHolder(
                 .into(imgVideo)
 
             txtTitle.text = video.title
+            txtDate.text = video.date
         }
     }
 
@@ -203,6 +202,7 @@ class VideoViewHolder(
                     .into(imgVideo)
 
                 txtTitle.text = video.title
+                txtDesc.text = video.date
             }
         }
     }

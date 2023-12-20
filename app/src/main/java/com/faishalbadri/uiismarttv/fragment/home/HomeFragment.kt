@@ -11,11 +11,10 @@ import androidx.fragment.app.viewModels
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
-import com.faishalbadri.uiismarttv.data.dummy.HomeData
-import com.faishalbadri.uiismarttv.data.dummy.News
-import com.faishalbadri.uiismarttv.data.dummy.Video
+import com.faishalbadri.uiismarttv.data.local.HomeData
+import com.faishalbadri.uiismarttv.data.local.News
+import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
-import okhttp3.internal.notifyAll
 
 class HomeFragment : Fragment() {
 

@@ -1,7 +1,6 @@
 package com.faishalbadri.uiismarttv.fragment.news
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
-import com.faishalbadri.uiismarttv.data.dummy.News
+import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.databinding.FragmentNewsBinding
-import com.faishalbadri.uiismarttv.utils.viewModelsFactory
 
 class NewsFragment : Fragment() {
 

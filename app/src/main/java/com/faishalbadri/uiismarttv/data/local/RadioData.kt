@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.data.dummy
+package com.faishalbadri.uiismarttv.data.local
 
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 

@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.data.dummy.RadioData
+import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment

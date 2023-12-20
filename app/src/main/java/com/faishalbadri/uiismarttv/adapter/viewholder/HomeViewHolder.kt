@@ -11,11 +11,11 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
-import com.faishalbadri.uiismarttv.data.dummy.Banner
-import com.faishalbadri.uiismarttv.data.dummy.HomeData
-import com.faishalbadri.uiismarttv.data.dummy.News
-import com.faishalbadri.uiismarttv.data.dummy.Show
-import com.faishalbadri.uiismarttv.data.dummy.Video
+import com.faishalbadri.uiismarttv.data.local.Banner
+import com.faishalbadri.uiismarttv.data.local.HomeData
+import com.faishalbadri.uiismarttv.data.local.News
+import com.faishalbadri.uiismarttv.data.local.Show
+import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment

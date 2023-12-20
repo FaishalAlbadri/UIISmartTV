@@ -1,8 +1,8 @@
-package com.faishalbadri.uiismarttv.data.real.home
+package com.faishalbadri.uiismarttv.data.remote.video
 
 import com.google.gson.annotations.SerializedName
 
-data class NewsItem(
+data class VideoItem(
 
 	@field:SerializedName("date")
 	val date: String,
@@ -10,9 +10,15 @@ data class NewsItem(
 	@field:SerializedName("img")
 	val img: String,
 
+	@field:SerializedName("link")
+	val link: String,
+
 	@field:SerializedName("id")
 	val id: String,
 
 	@field:SerializedName("title")
-	val title: String
+	val title: String,
+
+	@field:SerializedName("desc")
+	val desc: String
 )

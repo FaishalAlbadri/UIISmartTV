@@ -10,10 +10,10 @@ import com.faishalbadri.uiismarttv.adapter.viewholder.HomeViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.NewsViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.RadioViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.VideoViewHolder
-import com.faishalbadri.uiismarttv.data.dummy.HomeData
-import com.faishalbadri.uiismarttv.data.dummy.News
-import com.faishalbadri.uiismarttv.data.dummy.RadioData
-import com.faishalbadri.uiismarttv.data.dummy.Video
+import com.faishalbadri.uiismarttv.data.local.HomeData
+import com.faishalbadri.uiismarttv.data.local.News
+import com.faishalbadri.uiismarttv.data.local.RadioData
+import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding

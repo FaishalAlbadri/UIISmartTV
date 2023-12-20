@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.data.real.home
+package com.faishalbadri.uiismarttv.data.remote.home
 
 import com.google.gson.annotations.SerializedName
 

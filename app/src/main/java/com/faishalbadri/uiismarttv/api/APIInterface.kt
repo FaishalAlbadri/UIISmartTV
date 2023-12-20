@@ -1,15 +1,11 @@
 package com.faishalbadri.uiismarttv.api
 
-import com.faishalbadri.uiismarttv.data.dummy.News
-import com.faishalbadri.uiismarttv.data.real.home.HomeResponse
-import okhttp3.CipherSuite.Companion.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-import okhttp3.CipherSuite.Companion.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
-import okhttp3.CipherSuite.Companion.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-import okhttp3.ConnectionSpec
+import com.faishalbadri.uiismarttv.data.local.News
+import com.faishalbadri.uiismarttv.data.local.Video
+import com.faishalbadri.uiismarttv.data.remote.home.HomeResponse
+import com.faishalbadri.uiismarttv.data.remote.video.VideoResponse
 import okhttp3.OkHttpClient
-import okhttp3.TlsVersion
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -45,6 +41,12 @@ interface APIInterface {
 
     @GET("home/")
     suspend fun getHome(): Response<HomeResponse>
+
+    @FormUrlEncoded
+    @POST("videos/")
+    suspend fun getVideo(
+        @Field("maxResult") maxResult: Int,
+    ): Response<VideoResponse>
 
     @FormUrlEncoded
     @POST("news/")

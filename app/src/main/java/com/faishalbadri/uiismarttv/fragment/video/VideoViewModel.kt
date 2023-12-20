@@ -3,19 +3,33 @@ package com.faishalbadri.uiismarttv.fragment.video
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.faishalbadri.uiismarttv.data.dummy.DummyData
-import com.faishalbadri.uiismarttv.data.dummy.Video
+import androidx.lifecycle.viewModelScope
+import com.faishalbadri.uiismarttv.api.APIService
+import com.faishalbadri.uiismarttv.data.local.Video
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class VideoViewModel : ViewModel() {
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _video = MutableLiveData<List<Video>>()
-    val videoData: LiveData<List<Video>> = _video
+    private val _state = MutableLiveData<State>(State.Loading)
+    val state: LiveData<State> = _state
 
-    fun getVideo() {
-        _isLoading.value = true
-        _video.value = DummyData().dataVideo
-        _isLoading.value = false
+    sealed class State {
+        object Loading : State()
+        data class SuccessLoadVideo(val data: List<Video>) : State()
+        data class FailedLoadVideo(val error: Exception) : State()
+    }
+
+    init {
+        getVideo()
+    }
+
+    fun getVideo() = viewModelScope.launch(Dispatchers.IO) {
+        _state.postValue(State.Loading)
+        try {
+            _state.postValue(State.SuccessLoadVideo(APIService.getVideo()))
+        } catch (e: Exception) {
+            _state.postValue(State.FailedLoadVideo(e))
+        }
     }
 }

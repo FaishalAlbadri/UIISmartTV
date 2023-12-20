@@ -1,7 +1,6 @@
 package com.faishalbadri.uiismarttv.adapter.viewholder
 
 import android.graphics.PorterDuff
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
@@ -12,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.faishalbadri.uiismarttv.R
-import com.faishalbadri.uiismarttv.data.dummy.News
+import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding

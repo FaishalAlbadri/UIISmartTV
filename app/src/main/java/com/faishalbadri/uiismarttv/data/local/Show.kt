@@ -1,4 +1,4 @@
-package com.faishalbadri.uiismarttv.data.dummy
+package com.faishalbadri.uiismarttv.data.local
 
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
 
@@ -9,7 +9,8 @@ class Video(
     val title: String,
     val desc: String,
     val img: String,
-    val link: String
+    val link: String,
+    val date: String
 ) : Show(), AppAdapter.Item, Cloneable {
 
     override lateinit var itemType: AppAdapter.Type
