@@ -10,20 +10,21 @@ import androidx.fragment.app.viewModels
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.adapter.AppAdapter
+import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
+import com.faishalbadri.uiismarttv.utils.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
-    private val viewModel by viewModels<HomeViewModel>()
-
+    lateinit var viewModelFactory: ViewModelFactory
+    val viewModel: HomeViewModel by viewModels { viewModelFactory }
     private val appAdapter = AppAdapter()
-
     private lateinit var activityHome: HomeActivity
 
     override fun onCreateView(
@@ -36,15 +37,17 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initializeHome()
 
-        viewModel.state.observe(viewLifecycleOwner) {state ->
+        viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 HomeViewModel.State.Loading -> showLoading(true)
                 is HomeViewModel.State.SuccessLoading -> {
                     showLoading(false)
                     displayContent(state.data)
                 }
+
                 is HomeViewModel.State.FailedLoading -> {
                     showLoading(false)
                     Toast.makeText(
@@ -55,11 +58,19 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-        activityHome = getActivity() as HomeActivity
     }
 
     private fun initializeHome() {
+        viewModelFactory = ViewModelFactory.getInstance(requireContext())
+        activityHome = getActivity() as HomeActivity
+        if (appAdapter.items.size == 0) {
+            viewModel.getLocation().observe(viewLifecycleOwner) {
+                viewModel.getHome(
+                    it.provinsi,
+                    it.kota
+                )
+            }
+        }
         binding.vgvHome.apply {
             adapter = appAdapter
             setItemSpacing(resources.getDimension(R.dimen.home_spacing).toInt() * 2)
@@ -86,6 +97,7 @@ class HomeFragment : Fragment() {
                         when (show) {
                             is Video -> show.itemType = AppAdapter.Type.ITEM_VIDEO
                             is News -> show.itemType = AppAdapter.Type.ITEM_NEWS
+                            is Adzan -> show.itemType = AppAdapter.Type.ITEM_ADZAN
                         }
                     }
                     homeData.itemSpacing = resources.getDimension(R.dimen.home_spacing).toInt()

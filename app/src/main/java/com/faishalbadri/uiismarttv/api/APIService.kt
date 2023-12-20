@@ -5,13 +5,15 @@ import com.faishalbadri.uiismarttv.data.local.Banner
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.Video
+import com.faishalbadri.uiismarttv.utils.capitalizeWords
+import java.util.Calendar
 
 object APIService {
 
     private val service = APIInterface.build()
 
-    suspend fun getHome(): List<HomeData> {
-        val home = service.getHome()
+    suspend fun getHome(provinsi: String, kota: String): List<HomeData> {
+        val home = service.getHome(provinsi, kota, Calendar.getInstance().time)
         var homeData: List<HomeData> = mutableListOf()
         if (home.isSuccessful) {
             val homeResponse = home.body()
@@ -19,6 +21,19 @@ object APIService {
             val listNews = homeResponse!!.news
             val listPojokRektor = homeResponse!!.pojokRektor
             val listVideo = homeResponse!!.video
+            val listAdzan = homeResponse.adzan
+
+            val dataAdzan: MutableList<Adzan> = ArrayList()
+            if (listAdzan!!.isNotEmpty()) {
+                listAdzan.forEach {
+                    dataAdzan.add(
+                        Adzan(
+                            id = it!!.nama,
+                            value = it.waktu
+                        )
+                    )
+                }
+            }
 
             val dataBanner: MutableList<Banner> = ArrayList()
             if (listBanner!!.isNotEmpty()) {
@@ -88,6 +103,10 @@ object APIService {
                 HomeData(
                     msg = HomeData.Banner,
                     list = dataBanner
+                ),
+                HomeData(
+                    msg = HomeData.Adzan + " " + kota.capitalizeWords(),
+                    list = dataAdzan
                 ),
                 HomeData(
                     msg = HomeData.Video,

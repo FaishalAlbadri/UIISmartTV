@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class HomeResponse(
 
+    @field:SerializedName("adzan")
+    val adzan: List<AdzanItem?>? = null,
+
     @field:SerializedName("video")
     val video: List<VideoItem?>? = null,
 

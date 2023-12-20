@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.faishalbadri.uiismarttv.di.ViewModelInjection
+import com.faishalbadri.uiismarttv.fragment.home.HomeViewModel
 import com.faishalbadri.uiismarttv.fragment.location.LocationViewModel
 
 class ViewModelFactory(private val locationPreferences: LocationPreferences) : NewInstanceFactory() {
@@ -12,6 +13,9 @@ class ViewModelFactory(private val locationPreferences: LocationPreferences) : N
         return when {
             modelClass.isAssignableFrom(LocationViewModel::class.java) -> {
                 LocationViewModel(locationPreferences) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(locationPreferences) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

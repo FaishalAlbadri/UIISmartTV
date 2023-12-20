@@ -29,7 +29,7 @@ class LocationPreferences private constructor(private val dataStore: DataStore<P
         }
     }
 
-    suspend fun logout() {
+    suspend fun deleteLocation() {
         dataStore.edit { preferences ->
             preferences.clear()
         }

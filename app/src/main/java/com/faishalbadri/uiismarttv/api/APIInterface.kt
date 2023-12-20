@@ -2,8 +2,6 @@ package com.faishalbadri.uiismarttv.api
 
 import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.News
-import com.faishalbadri.uiismarttv.data.local.Video
-import com.faishalbadri.uiismarttv.data.remote.adzan.AdzanResponse
 import com.faishalbadri.uiismarttv.data.remote.home.HomeResponse
 import com.faishalbadri.uiismarttv.data.remote.video.VideoResponse
 import okhttp3.OkHttpClient
@@ -42,8 +40,13 @@ interface APIInterface {
         }
     }
 
-    @GET("home/")
-    suspend fun getHome(): Response<HomeResponse>
+    @FormUrlEncoded
+    @POST("home/")
+    suspend fun getHome(
+        @Field("provinsi") provinsi: String,
+        @Field("kota") kota: String,
+        @Field("date") date: Date
+    ): Response<HomeResponse>
 
     @FormUrlEncoded
     @POST("videos/")
@@ -68,14 +71,6 @@ interface APIInterface {
     suspend fun getDetailNews(
         @Field("id") id: String,
     ): Response<List<News>>
-
-    @FormUrlEncoded
-    @POST("adzan/")
-    suspend fun getAdzan(
-        @Field("provinsi") provinsi: String,
-        @Field("kota") kota: String,
-        @Field("date") date: Date
-    ): Response<AdzanResponse>
 
     @GET("adzan/provinsi")
     suspend fun getProvinsi(): Response<List<Adzan>>

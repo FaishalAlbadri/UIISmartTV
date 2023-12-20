@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.faishalbadri.uiismarttv.adapter.viewholder.AdzanViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.LoadingViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.HomeViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.LocationViewHolder
@@ -17,6 +18,7 @@ import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
+import com.faishalbadri.uiismarttv.databinding.ItemAdzanBinding
 import com.faishalbadri.uiismarttv.databinding.ItemHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLocationBinding
@@ -40,6 +42,7 @@ class AppAdapter(
         HOME,
         RADIO,
 
+        ITEM_ADZAN,
         ITEM_HOME,
         ITEM_VIDEO,
         ITEM_VIDEO_VERTICAL,
@@ -83,6 +86,14 @@ class AppAdapter(
 
             Type.ITEM_HOME -> HomeViewHolder(
                 ItemHomeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            Type.ITEM_ADZAN -> AdzanViewHolder(
+                ItemAdzanBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -150,6 +161,7 @@ class AppAdapter(
             is NewsViewHolder -> holder.bind(items[position] as News)
             is RadioViewHolder -> holder.bind(items[position] as RadioData)
             is LocationViewHolder -> holder.bind(items[position] as Adzan)
+            is AdzanViewHolder -> holder.bind(items[position] as Adzan)
         }
     }
 

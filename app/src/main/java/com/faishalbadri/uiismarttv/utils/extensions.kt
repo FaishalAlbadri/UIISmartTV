@@ -1,5 +1,6 @@
 package com.faishalbadri.uiismarttv.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.view.View
@@ -12,6 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
+
+@SuppressLint("DefaultLocale")
+fun String.capitalizeWords(): String =
+    split(" ").joinToString(" ") { it.lowercase().replaceFirstChar { it.uppercase() } }
 
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }

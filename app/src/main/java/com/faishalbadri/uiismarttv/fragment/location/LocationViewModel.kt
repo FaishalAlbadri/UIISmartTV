@@ -40,8 +40,8 @@ class LocationViewModel(private val locationPreferences: LocationPreferences) : 
         return locationPreferences.getLocation().asLiveData()
     }
 
-    fun logout() = viewModelScope.launch(Dispatchers.IO) {
-        locationPreferences.logout()
+    fun deleteLocation() = viewModelScope.launch(Dispatchers.IO) {
+        locationPreferences.deleteLocation()
     }
 
     fun saveSession(locationDataPreferences: LocationDataPreferences) =
