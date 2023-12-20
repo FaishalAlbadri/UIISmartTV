@@ -16,7 +16,6 @@ import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentHomeBinding
 import com.faishalbadri.uiismarttv.utils.ViewModelFactory
-
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

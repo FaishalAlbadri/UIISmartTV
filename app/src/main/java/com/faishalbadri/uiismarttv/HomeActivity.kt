@@ -1,6 +1,5 @@
 package com.faishalbadri.uiismarttv
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -16,7 +15,6 @@ import androidx.activity.viewModels
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.NavHostFragment
 import com.faishalbadri.navigation.setupWithNavController
-import com.faishalbadri.uiismarttv.data.local.LocationDataPreferences
 import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.databinding.ActivityHomeBinding
 import com.faishalbadri.uiismarttv.databinding.ContentHeaderMenuMainBinding
@@ -38,6 +36,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     var textToSpeech: TextToSpeech? = null
     var textToSpeechStatus = false
     var textToSpeechPlayStatus = false
+    var dataAdzan: String? = null
     lateinit var viewModel: ViewModelFactory
     val mainViewModel: LocationViewModel by viewModels { viewModel }
 
@@ -161,7 +160,19 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
         textToSpeech!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
     }
 
+    fun initAdzan() {
+        stopPlayer()
+        dataAdzan = "https://cdn.islamdownload.net/wp-content/uploads-by-id/123801/adan_madinah_32_16.mp3?_=6"
+        player = ExoPlayer.Builder(this).build().apply {
+            addListener(playerListener)
+        }
+        val mediaItem = MediaItem.fromUri(dataAdzan!!)
+        player!!.setMediaItem(mediaItem)
+        player!!.prepare()
+    }
+
     fun initRadio(data: RadioData) {
+        stopPlayer()
         dataRadio = data
         player = ExoPlayer.Builder(this).build().apply {
             addListener(playerListener)
@@ -183,8 +194,12 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
     private fun play() {
         player?.playWhenReady = true
-        if (player != null && dataRadio != null) {
-            binding.txtListening.text = "Now you're listening to " + dataRadio!!.namaRadio
+        if (player != null) {
+            if (dataRadio != null) {
+                binding.txtListening.text = "Now you're listening to " + dataRadio!!.namaRadio
+            } else if (dataAdzan != null) {
+                binding.txtListening.text = "Saat ini adzan sedang berkumandang"
+            }
         }
     }
 
@@ -194,7 +209,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
             super.onPlaybackStateChanged(playbackState)
             when (playbackState) {
                 Player.STATE_ENDED -> {
-                    releasePlayer()
+                    stopPlayer()
                 }
 
                 Player.STATE_READY -> {
@@ -219,12 +234,16 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     }
 
     fun stopPlayer() {
-        if (player != null && dataRadio != null) {
+        if (player != null) {
             releasePlayer()
-            dataRadio = null
-            when (val currentFragment = getCurrentFragment()) {
-                is RadioFragment -> currentFragment.setStateStop()
-                else -> false
+            if (dataRadio != null) {
+                dataRadio = null
+                when (val currentFragment = getCurrentFragment()) {
+                    is RadioFragment -> currentFragment.setStateStop()
+                    else -> false
+                }
+            } else {
+                dataAdzan = null
             }
         }
     }
