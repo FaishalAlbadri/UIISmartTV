@@ -20,7 +20,7 @@ object APIService {
             val listBanner = homeResponse!!.banner
             val listNews = homeResponse!!.news
             val listPojokRektor = homeResponse!!.pojokRektor
-            val listVideo = homeResponse!!.video
+//            val listVideo = homeResponse!!.video
             val listAdzan = homeResponse.adzan
 
             val dataAdzan: MutableList<Adzan> = ArrayList()
@@ -82,22 +82,22 @@ object APIService {
             }
             dataPojokRektor.add(News("", HomeData.PojokRektor, "", "", ""))
 
-            val dataVideo: MutableList<Video> = ArrayList()
-            if (listVideo!!.isNotEmpty()) {
-                listVideo.forEach {
-                    dataVideo.add(
-                        Video(
-                            id = it!!.id,
-                            title = it.title,
-                            desc = it.desc,
-                            img = it.img,
-                            link = it.link,
-                            date = it.date,
-                        )
-                    )
-                }
-            }
-            dataVideo.add(Video("", "", "", "", "", ""))
+//            val dataVideo: MutableList<Video> = ArrayList()
+//            if (listVideo!!.isNotEmpty()) {
+//                listVideo.forEach {
+//                    dataVideo.add(
+//                        Video(
+//                            id = it!!.id,
+//                            title = it.title,
+//                            desc = it.desc,
+//                            img = it.img,
+//                            link = it.link,
+//                            date = it.date,
+//                        )
+//                    )
+//                }
+//            }
+//            dataVideo.add(Video("", "", "", "", "", ""))
 
             homeData = mutableListOf(
                 HomeData(
@@ -108,10 +108,10 @@ object APIService {
                     msg = HomeData.Adzan + " " + kota.capitalizeWords(),
                     list = dataAdzan
                 ),
-                HomeData(
-                    msg = HomeData.Video,
-                    list = dataVideo
-                ),
+//                HomeData(
+//                    msg = HomeData.Video,
+//                    list = dataVideo
+//                ),
                 HomeData(
                     msg = HomeData.News,
                     list = dataNews

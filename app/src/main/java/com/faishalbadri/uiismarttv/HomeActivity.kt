@@ -195,6 +195,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     private fun play() {
         player?.playWhenReady = true
         if (player != null) {
+            binding.layoutListening.visibility = View.VISIBLE
             if (dataRadio != null) {
                 binding.txtListening.text = "Now you're listening to " + dataRadio!!.namaRadio
             } else if (dataAdzan != null) {
@@ -266,7 +267,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     override fun onStop() {
         super.onStop()
         stopPlayer()
-        stopTextToSpeech()
+        destroyTextToSpeech()
     }
 
     override fun onDestroy() {
