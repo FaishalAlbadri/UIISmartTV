@@ -80,4 +80,10 @@ interface APIInterface {
     suspend fun getKota(
         @Field("provinsi") provinsi: String,
     ): Response<List<Adzan>>
+
+    @FormUrlEncoded
+    @POST("search/")
+    suspend fun getSeach(
+        @Field("search") search: String,
+    ): Response<HomeResponse>
 }

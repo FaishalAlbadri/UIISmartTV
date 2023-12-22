@@ -21,6 +21,8 @@ import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment
 import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragmentDirections
 import com.faishalbadri.uiismarttv.fragment.news.NewsFragment
 import com.faishalbadri.uiismarttv.fragment.news.NewsFragmentDirections
+import com.faishalbadri.uiismarttv.fragment.search.SearchFragment
+import com.faishalbadri.uiismarttv.fragment.search.SearchFragmentDirections
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
@@ -110,6 +112,7 @@ class NewsViewHolder(
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
                         is NewsFragment -> findNavController().navigate(NewsFragmentDirections.actionNewsToNewsDetail(news.id))
+                        is SearchFragment -> findNavController().navigate(SearchFragmentDirections.actionSearchToNewsDetail(news.id))
                     }
                 }
             }

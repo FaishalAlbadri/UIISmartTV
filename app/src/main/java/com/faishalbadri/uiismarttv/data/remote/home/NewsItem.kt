@@ -13,6 +13,9 @@ data class NewsItem(
 	@field:SerializedName("id")
 	val id: String,
 
+	@field:SerializedName("desc")
+	val desc: String,
+
 	@field:SerializedName("title")
 	val title: String
 )

@@ -4,6 +4,7 @@ import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.Banner
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
+import com.faishalbadri.uiismarttv.data.local.SearchData
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.utils.capitalizeWords
 import java.util.Calendar
@@ -12,15 +13,71 @@ object APIService {
 
     private val service = APIInterface.build()
 
+    suspend fun getSearch(search: String): List<HomeData> {
+        val service = service.getSeach(search)
+        var searchData: List<HomeData> = mutableListOf()
+
+        if (service.isSuccessful) {
+            val searchResponse = service.body()
+            val listVideo = searchResponse!!.video
+            val listNews = searchResponse.news
+
+            val dataNews: MutableList<News> = ArrayList()
+            if (listNews!!.isNotEmpty()) {
+                listNews.forEach {
+                    dataNews.add(
+                        News(
+                            id = it!!.id,
+                            title = it.title,
+                            date = it.date,
+                            desc = it.desc,
+                            img = it.img
+                        )
+                    )
+                }
+            }
+
+            val dataVideo: MutableList<Video> = ArrayList()
+            if (listVideo!!.isNotEmpty()) {
+                listVideo.forEach {
+                    dataVideo.add(
+                        Video(
+                            id = it!!.id,
+                            title = it.title,
+                            desc = it.desc,
+                            img = it.img,
+                            link = it.link,
+                            date = it.date,
+                        )
+                    )
+                }
+            }
+
+            searchData = mutableListOf(
+                HomeData(
+                    msg = HomeData.Video,
+                    list = dataVideo
+                ),
+                HomeData(
+                    msg = HomeData.News,
+                    list = dataNews
+                )
+
+            )
+        }
+
+        return searchData
+    }
+
     suspend fun getHome(provinsi: String, kota: String): List<HomeData> {
         val home = service.getHome(provinsi, kota, Calendar.getInstance().time)
         var homeData: List<HomeData> = mutableListOf()
         if (home.isSuccessful) {
             val homeResponse = home.body()
             val listBanner = homeResponse!!.banner
-            val listNews = homeResponse!!.news
-            val listPojokRektor = homeResponse!!.pojokRektor
-//            val listVideo = homeResponse!!.video
+            val listNews = homeResponse.news
+            val listPojokRektor = homeResponse.pojokRektor
+            val listVideo = homeResponse.video
             val listAdzan = homeResponse.adzan
 
             val dataAdzan: MutableList<Adzan> = ArrayList()
@@ -82,22 +139,22 @@ object APIService {
             }
             dataPojokRektor.add(News("", HomeData.PojokRektor, "", "", ""))
 
-//            val dataVideo: MutableList<Video> = ArrayList()
-//            if (listVideo!!.isNotEmpty()) {
-//                listVideo.forEach {
-//                    dataVideo.add(
-//                        Video(
-//                            id = it!!.id,
-//                            title = it.title,
-//                            desc = it.desc,
-//                            img = it.img,
-//                            link = it.link,
-//                            date = it.date,
-//                        )
-//                    )
-//                }
-//            }
-//            dataVideo.add(Video("", "", "", "", "", ""))
+            val dataVideo: MutableList<Video> = ArrayList()
+            if (listVideo!!.isNotEmpty()) {
+                listVideo.forEach {
+                    dataVideo.add(
+                        Video(
+                            id = it!!.id,
+                            title = it.title,
+                            desc = it.desc,
+                            img = it.img,
+                            link = it.link,
+                            date = it.date,
+                        )
+                    )
+                }
+            }
+            dataVideo.add(Video("", "", "", "", "", ""))
 
             homeData = mutableListOf(
                 HomeData(
@@ -108,10 +165,10 @@ object APIService {
                     msg = HomeData.Adzan + " " + kota.capitalizeWords(),
                     list = dataAdzan
                 ),
-//                HomeData(
-//                    msg = HomeData.Video,
-//                    list = dataVideo
-//                ),
+                HomeData(
+                    msg = HomeData.Video,
+                    list = dataVideo
+                ),
                 HomeData(
                     msg = HomeData.News,
                     list = dataNews

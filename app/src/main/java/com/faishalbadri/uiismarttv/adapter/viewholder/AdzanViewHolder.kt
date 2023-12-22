@@ -2,7 +2,6 @@ package com.faishalbadri.uiismarttv.adapter.viewholder
 
 import android.os.Build
 import android.view.animation.AnimationUtils
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -20,7 +19,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-@RequiresApi(Build.VERSION_CODES.S)
 class AdzanViewHolder(
     private val _binding: ViewBinding
 ) : RecyclerView.ViewHolder(
@@ -61,22 +59,24 @@ class AdzanViewHolder(
 
         CoroutineScope(Dispatchers.Default).launch {
             while (isActive) {
-                val waktuAdzan = adzan.value.split(":").toTypedArray()
-                val waktuSaatIni = LocalTime.now()
-                val waktuTarget = LocalTime.of(waktuAdzan[0].toInt(), waktuAdzan[1].toInt(), 0)
-                val selisihWaktu = waktuSaatIni.until(waktuTarget, ChronoUnit.SECONDS)
-                val jam = formatwaktu(selisihWaktu / 3600)
-                val sisaDetik = selisihWaktu % 3600
-                val menit = formatwaktu(sisaDetik / 60)
-                val detik = formatwaktu(sisaDetik % 60)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val waktuAdzan = adzan.value.split(":").toTypedArray()
+                    val waktuSaatIni = LocalTime.now()
+                    val waktuTarget = LocalTime.of(waktuAdzan[0].toInt(), waktuAdzan[1].toInt(), 0)
+                    val selisihWaktu = waktuSaatIni.until(waktuTarget, ChronoUnit.SECONDS)
+                    val jam = formatwaktu(selisihWaktu / 3600)
+                    val sisaDetik = selisihWaktu % 3600
+                    val menit = formatwaktu(sisaDetik / 60)
+                    val detik = formatwaktu(sisaDetik % 60)
 
-                if (selisihWaktu < 0) {
-                    binding.txtWaktu.text = adzan.value
-                } else {
-                    binding.txtWaktu.text =
-                        adzan.value + " (-" + jam + ":" + menit + ":" + detik + ")"
+                    if (selisihWaktu < 0) {
+                        binding.txtWaktu.text = adzan.value
+                    } else {
+                        binding.txtWaktu.text =
+                            adzan.value + " (-" + jam + ":" + menit + ":" + detik + ")"
+                    }
+                    delay(1000L)
                 }
-                delay(1000L)
             }
         }
     }
