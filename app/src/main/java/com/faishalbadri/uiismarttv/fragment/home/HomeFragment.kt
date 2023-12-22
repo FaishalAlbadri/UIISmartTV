@@ -62,14 +62,6 @@ class HomeFragment : Fragment() {
     private fun initializeHome() {
         viewModelFactory = ViewModelFactory.getInstance(requireContext())
         activityHome = getActivity() as HomeActivity
-        if (appAdapter.items.size == 0) {
-            viewModel.getLocation().observe(viewLifecycleOwner) {
-                viewModel.getHome(
-                    it.provinsi,
-                    it.kota
-                )
-            }
-        }
         binding.vgvHome.apply {
             adapter = appAdapter
             setItemSpacing(resources.getDimension(R.dimen.home_spacing).toInt() * 2)

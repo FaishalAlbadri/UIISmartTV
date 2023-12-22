@@ -10,6 +10,8 @@ import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.LocationDataPreferences
 import com.faishalbadri.uiismarttv.utils.LocationPreferences
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val locationPreferences: LocationPreferences) : ViewModel() {
@@ -23,6 +25,14 @@ class HomeViewModel(private val locationPreferences: LocationPreferences) : View
         data class FailedLoading(val error: Exception) : State()
     }
 
+    init {
+        viewModelScope.launch {
+            getLocation().collect(){
+                getHome(it.provinsi, it.kota)
+            }
+        }
+    }
+
     fun getHome(provinsi: String, kota: String) = viewModelScope.launch(Dispatchers.IO) {
         _state.postValue(State.Loading)
         try {
@@ -33,8 +43,8 @@ class HomeViewModel(private val locationPreferences: LocationPreferences) : View
         }
     }
 
-    fun getLocation(): LiveData<LocationDataPreferences> {
-        return locationPreferences.getLocation().asLiveData()
+    fun getLocation(): Flow<LocationDataPreferences> {
+        return locationPreferences.getLocation()
     }
 
 }
