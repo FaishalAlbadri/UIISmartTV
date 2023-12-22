@@ -17,6 +17,7 @@ import com.faishalbadri.uiismarttv.databinding.ItemVideoVerticalBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
+import com.faishalbadri.uiismarttv.utils.safeNavigate
 import com.faishalbadri.uiismarttv.utils.toActivity
 
 class VideoViewHolder(
@@ -148,7 +149,7 @@ class VideoViewHolder(
                     }
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> findNavController().navigate(HomeFragmentDirections.actionHomeToVideo())
+                            is HomeFragment -> findNavController().safeNavigate(HomeFragmentDirections.actionHomeToVideo())
                         }
                     }
                 }

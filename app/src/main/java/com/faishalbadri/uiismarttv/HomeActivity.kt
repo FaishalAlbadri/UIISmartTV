@@ -12,6 +12,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.activity.viewModels
+import androidx.media3.datasource.RawResourceDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.NavHostFragment
 import com.faishalbadri.navigation.setupWithNavController
@@ -24,8 +25,10 @@ import com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.ViewModelFactory
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
+import com.faishalbadri.uiismarttv.utils.safeNavigate
 import java.util.Locale
 
+@UnstableApi
 class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
     private var _binding: ActivityHomeBinding? = null
@@ -52,7 +55,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
 
         mainViewModel.getLocation().observe(this) {
             if (it.provinsi.isNotEmpty()) {
-                navController.navigate(R.id.home)
+                navController.safeNavigate(NavMainGraphDirections.actionGlobalHomeFragment())
             }
         }
 
@@ -74,7 +77,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                 }
 
                 setOnClickListener {
-                    navController.navigate(R.id.profile)
+                    navController.safeNavigate(NavMainGraphDirections.actionGlobalProfile())
                 }
             }
 
@@ -161,25 +164,29 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
     }
 
     fun initAdzan() {
-        stopPlayer()
-        dataAdzan = "https://cdn.islamdownload.net/wp-content/uploads-by-id/123801/adan_madinah_32_16.mp3?_=6"
-        player = ExoPlayer.Builder(this).build().apply {
-            addListener(playerListener)
+        runOnUiThread {
+            stopPlayer()
+            dataAdzan = "Saat ini adzan sedang berkumandang"
+            player = ExoPlayer.Builder(this).build().apply {
+                addListener(playerListener)
+            }
+            val mediaItem = MediaItem.fromUri(RawResourceDataSource.buildRawResourceUri(R.raw.adzan))
+            player!!.setMediaItem(mediaItem)
+            player!!.prepare()
         }
-        val mediaItem = MediaItem.fromUri(dataAdzan!!)
-        player!!.setMediaItem(mediaItem)
-        player!!.prepare()
     }
 
     fun initRadio(data: RadioData) {
-        stopPlayer()
-        dataRadio = data
-        player = ExoPlayer.Builder(this).build().apply {
-            addListener(playerListener)
+        runOnUiThread {
+            stopPlayer()
+            dataRadio = data
+            player = ExoPlayer.Builder(this).build().apply {
+                addListener(playerListener)
+            }
+            val mediaItem = MediaItem.fromUri(data.link)
+            player!!.setMediaItem(mediaItem)
+            player!!.prepare()
         }
-        val mediaItem = MediaItem.fromUri(data.link)
-        player!!.setMediaItem(mediaItem)
-        player!!.prepare()
     }
 
     fun releasePlayer() {
@@ -199,7 +206,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
             if (dataRadio != null) {
                 binding.txtListening.text = "Now you're listening to " + dataRadio!!.namaRadio
             } else if (dataAdzan != null) {
-                binding.txtListening.text = "Saat ini adzan sedang berkumandang"
+                binding.txtListening.text = dataAdzan
             }
         }
     }
@@ -243,7 +250,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                     is RadioFragment -> currentFragment.setStateStop()
                     else -> false
                 }
-            } else {
+            } else if (dataAdzan != null) {
                 dataAdzan = null
             }
         }

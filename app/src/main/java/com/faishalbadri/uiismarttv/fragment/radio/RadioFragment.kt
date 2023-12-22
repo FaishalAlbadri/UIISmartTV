@@ -77,14 +77,14 @@ class RadioFragment : Fragment() {
     }
 
     fun playRadio(data: RadioData) {
-        if (activityHome.player == null) {
+        if (activityHome.player == null && activityHome.dataRadio == null || activityHome.player != null && activityHome.dataRadio == null) {
             initRadio(data)
+        } else if (activityHome.player != null && activityHome.dataRadio != null && activityHome.dataRadio!!.link == data.link) {
+            setStateStop()
+            activityHome.stopPlayer()
         } else {
             setStateStop()
-            activityHome.releasePlayer()
-            if (activityHome.dataRadio!!.link != data.link) {
-                initRadio(data)
-            }
+            initRadio(data)
         }
     }
 

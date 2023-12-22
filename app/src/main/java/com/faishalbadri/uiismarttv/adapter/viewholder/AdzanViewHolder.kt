@@ -2,6 +2,7 @@ package com.faishalbadri.uiismarttv.adapter.viewholder
 
 import android.os.Build
 import android.view.animation.AnimationUtils
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -10,7 +11,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.databinding.ItemAdzanBinding
+import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
+import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
 import com.faishalbadri.uiismarttv.utils.capitalizeWords
+import com.faishalbadri.uiismarttv.utils.getCurrentFragment
+import com.faishalbadri.uiismarttv.utils.safeNavigate
+import com.faishalbadri.uiismarttv.utils.toActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -71,6 +77,11 @@ class AdzanViewHolder(
 
                     if (selisihWaktu < 0) {
                         binding.txtWaktu.text = adzan.value
+                    } else if (selisihWaktu == 0L) {
+                        when (val fragment = context.toActivity()?.getCurrentFragment()) {
+                            is HomeFragment -> fragment.activityHome.initAdzan()
+                        }
+
                     } else {
                         binding.txtWaktu.text =
                             adzan.value + " (-" + jam + ":" + menit + ":" + detik + ")"

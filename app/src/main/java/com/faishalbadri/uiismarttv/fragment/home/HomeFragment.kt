@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     val viewModel: HomeViewModel by viewModels { viewModelFactory }
     private val appAdapter = AppAdapter()
-    private lateinit var activityHome: HomeActivity
+    lateinit var activityHome: HomeActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

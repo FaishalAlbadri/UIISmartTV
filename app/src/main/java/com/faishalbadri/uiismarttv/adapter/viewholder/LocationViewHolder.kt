@@ -11,6 +11,7 @@ import com.faishalbadri.uiismarttv.databinding.ItemLocationBinding
 import com.faishalbadri.uiismarttv.fragment.location.LocationFragment
 import com.faishalbadri.uiismarttv.fragment.location.LocationFragmentDirections
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
+import com.faishalbadri.uiismarttv.utils.safeNavigate
 import com.faishalbadri.uiismarttv.utils.toActivity
 
 class LocationViewHolder(
@@ -39,7 +40,7 @@ class LocationViewHolder(
                 when (val fragment = context.toActivity()?.getCurrentFragment()) {
                     is LocationFragment -> {
                         if (fragment.args.provinsi.equals("0")) {
-                            findNavController().navigate(
+                            findNavController().safeNavigate(
                                 LocationFragmentDirections.actionLocationSelf(
                                     adzan.value
                                 )
