@@ -13,7 +13,6 @@ import com.faishalbadri.uiismarttv.adapter.AppAdapter
 import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
-import com.faishalbadri.uiismarttv.data.local.SearchData
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentSearchBinding
 import com.faishalbadri.uiismarttv.utils.hideKeyboard

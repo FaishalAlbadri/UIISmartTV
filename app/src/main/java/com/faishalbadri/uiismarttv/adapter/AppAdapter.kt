@@ -11,13 +11,11 @@ import com.faishalbadri.uiismarttv.adapter.viewholder.HomeViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.LocationViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.NewsViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.RadioViewHolder
-import com.faishalbadri.uiismarttv.adapter.viewholder.SearchViewHolder
 import com.faishalbadri.uiismarttv.adapter.viewholder.VideoViewHolder
 import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.RadioData
-import com.faishalbadri.uiismarttv.data.local.SearchData
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.ContentSliderBinding
 import com.faishalbadri.uiismarttv.databinding.ItemAdzanBinding
@@ -28,7 +26,6 @@ import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
-import com.faishalbadri.uiismarttv.databinding.ItemSearchBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoVerticalBinding
 
@@ -43,7 +40,6 @@ class AppAdapter(
     enum class Type {
         LOADING,
         HOME,
-        SEARCH,
         RADIO,
 
         ITEM_ADZAN,
@@ -74,14 +70,6 @@ class AppAdapter(
 
             Type.HOME -> HomeViewHolder(
                 ContentSliderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
-
-            Type.SEARCH -> SearchViewHolder(
-                ItemSearchBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -169,7 +157,6 @@ class AppAdapter(
 
         when (holder) {
             is HomeViewHolder -> holder.bind(items[position] as HomeData)
-            is SearchViewHolder -> holder.bind(items[position] as SearchData)
             is VideoViewHolder -> holder.bind(items[position] as Video)
             is NewsViewHolder -> holder.bind(items[position] as News)
             is RadioViewHolder -> holder.bind(items[position] as RadioData)
@@ -191,7 +178,6 @@ class AppAdapter(
 
         states[holder.layoutPosition] = when (holder) {
             is HomeViewHolder -> holder.childRecyclerView?.layoutManager?.onSaveInstanceState()
-            is SearchViewHolder -> holder.childRecyclerView?.layoutManager?.onSaveInstanceState()
             else -> null
         }
     }
@@ -202,7 +188,6 @@ class AppAdapter(
 
             states[position] = when (holder) {
                 is HomeViewHolder -> holder.childRecyclerView?.layoutManager?.onSaveInstanceState()
-                is SearchViewHolder -> holder.childRecyclerView?.layoutManager?.onSaveInstanceState()
                 else -> null
             }
         }
