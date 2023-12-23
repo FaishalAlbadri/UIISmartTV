@@ -1,6 +1,7 @@
 package com.faishalbadri.uiismarttv.adapter.viewholder
 
 import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
@@ -14,6 +15,7 @@ import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
+import com.faishalbadri.uiismarttv.databinding.ItemNewsSearchBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
@@ -41,9 +43,38 @@ class NewsViewHolder(
 
         when (_binding) {
             is ItemNewsBinding -> displayItem(_binding)
+            is ItemNewsSearchBinding -> displayItemSearch(_binding)
             is ItemNewsVerticalBinding -> displayItemVertical(_binding)
             is ItemNewsRecomendationBinding -> displayItemRecommendation(_binding)
 
+        }
+    }
+
+    private fun displayItemSearch(binding: ItemNewsSearchBinding) {
+        binding.apply {
+            txtTitle.apply {
+                val colors = context.resources.getIntArray(R.array.location)
+                (background as? GradientDrawable)?.setColor(colors[bindingAdapterPosition % colors.size])
+                setOnClickListener {
+                    when (val fragment = context.toActivity()?.getCurrentFragment()) {
+                        is SearchFragment -> findNavController().safeNavigate(
+                            SearchFragmentDirections.actionSearchToNewsDetail(news.id)
+                        )
+                    }
+                }
+                setOnFocusChangeListener { _, hasFocus ->
+                    val animation = when {
+                        hasFocus -> AnimationUtils.loadAnimation(context, R.anim.zoom_in)
+                        else -> AnimationUtils.loadAnimation(context, R.anim.zoom_out)
+                    }
+                    startAnimation(animation)
+                    animation.fillAfter = true
+                }
+
+                text = news.title
+            }
+            txtDate.text = news.date
+            txtDesc.text = news.desc
         }
     }
 
@@ -69,7 +100,9 @@ class NewsViewHolder(
                 }
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is NewsDetailFragment -> findNavController().safeNavigate(NewsDetailFragmentDirections.actionNewsDetailSelf(news.id))
+                        is NewsDetailFragment -> findNavController().safeNavigate(
+                            NewsDetailFragmentDirections.actionNewsDetailSelf(news.id)
+                        )
                     }
                 }
             }
@@ -112,8 +145,15 @@ class NewsViewHolder(
                 }
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is NewsFragment -> findNavController().safeNavigate(NewsFragmentDirections.actionNewsToNewsDetail(news.id))
-                        is SearchFragment -> findNavController().safeNavigate(SearchFragmentDirections.actionSearchToNewsDetail(news.id))
+                        is NewsFragment -> findNavController().safeNavigate(
+                            NewsFragmentDirections.actionNewsToNewsDetail(
+                                news.id
+                            )
+                        )
+
+                        is SearchFragment -> findNavController().safeNavigate(
+                            SearchFragmentDirections.actionSearchToNewsDetail(news.id)
+                        )
                     }
                 }
             }
@@ -195,7 +235,9 @@ class NewsViewHolder(
                     }
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> findNavController().safeNavigate(HomeFragmentDirections.actionHomeToNews(news.title))
+                            is HomeFragment -> findNavController().safeNavigate(
+                                HomeFragmentDirections.actionHomeToNews(news.title)
+                            )
                         }
                     }
                 }
@@ -237,7 +279,9 @@ class NewsViewHolder(
                     }
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> findNavController().safeNavigate(HomeFragmentDirections.actionHomeToNewsDetail(news.id))
+                            is HomeFragment -> findNavController().safeNavigate(
+                                HomeFragmentDirections.actionHomeToNewsDetail(news.id)
+                            )
                         }
                     }
                 }

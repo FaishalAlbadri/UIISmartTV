@@ -95,6 +95,6 @@
     </fragment>
     <action
         android:id="@+id/action_global_profile"
-        app:destination="@id/profile" />
+        app:destination="@id/profile" /><action android:id="@+id/action_global_search" app:destination="@id/search"/>
 
 </navigation>

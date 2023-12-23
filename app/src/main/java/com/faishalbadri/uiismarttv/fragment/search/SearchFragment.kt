@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
                     searchData.list.onEach { show ->
                         when (show) {
                             is Video -> show.itemType = AppAdapter.Type.ITEM_VIDEO
-                            is News -> show.itemType = AppAdapter.Type.ITEM_NEWS
+                            is News -> show.itemType = AppAdapter.Type.ITEM_NEWS_SEARCH
                             is Adzan -> show.itemType = AppAdapter.Type.ITEM_ADZAN
                         }
                     }

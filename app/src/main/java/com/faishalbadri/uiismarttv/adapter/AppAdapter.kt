@@ -24,6 +24,7 @@ import com.faishalbadri.uiismarttv.databinding.ItemLoadingBinding
 import com.faishalbadri.uiismarttv.databinding.ItemLocationBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsRecomendationBinding
+import com.faishalbadri.uiismarttv.databinding.ItemNewsSearchBinding
 import com.faishalbadri.uiismarttv.databinding.ItemNewsVerticalBinding
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
@@ -47,6 +48,7 @@ class AppAdapter(
         ITEM_VIDEO,
         ITEM_VIDEO_VERTICAL,
         ITEM_NEWS,
+        ITEM_NEWS_SEARCH,
         ITEM_NEWS_VERTICAL,
         ITEM_NEWS_RECOMMENDATION,
 
@@ -118,6 +120,14 @@ class AppAdapter(
 
             Type.ITEM_NEWS -> NewsViewHolder(
                 ItemNewsBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+
+            Type.ITEM_NEWS_SEARCH -> NewsViewHolder(
+                ItemNewsSearchBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
