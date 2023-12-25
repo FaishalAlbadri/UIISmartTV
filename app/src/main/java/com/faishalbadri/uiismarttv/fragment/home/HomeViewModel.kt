@@ -28,15 +28,15 @@ class HomeViewModel(private val locationPreferences: LocationPreferences) : View
     init {
         viewModelScope.launch {
             getLocation().collect(){
-                getHome(it.provinsi, it.kota)
+                getHome(it.id, it.nama)
             }
         }
     }
 
-    fun getHome(provinsi: String, kota: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getHome(id: String, nama: String) = viewModelScope.launch(Dispatchers.IO) {
         _state.postValue(State.Loading)
         try {
-            val content = APIService.getHome(provinsi, kota)
+            val content = APIService.getHome(id, nama)
             _state.postValue(State.SuccessLoading(content))
         } catch (e: Exception) {
             _state.postValue(State.FailedLoading(e))

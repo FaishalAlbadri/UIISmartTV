@@ -23,14 +23,10 @@ class LocationViewModel(private val locationPreferences: LocationPreferences) : 
         data class FailedLoadLocation(val error: Exception) : State()
     }
 
-    fun getLocation(provinsi: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getLocationAPI() = viewModelScope.launch(Dispatchers.IO) {
         _state.postValue(State.Loading)
         try {
-            if (provinsi.equals("0")) {
-                _state.postValue(State.SuccessLoadLocation(APIService.getLocationProvinsi()))
-            } else {
-                _state.postValue(State.SuccessLoadLocation(APIService.getLocationKota(provinsi)))
-            }
+            _state.postValue(State.SuccessLoadLocation(APIService.getLocation()))
         } catch (e: Exception) {
             _state.postValue(State.FailedLoadLocation(e))
         }

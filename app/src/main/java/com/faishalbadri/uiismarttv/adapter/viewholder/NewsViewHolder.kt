@@ -26,7 +26,6 @@ import com.faishalbadri.uiismarttv.fragment.news.NewsFragmentDirections
 import com.faishalbadri.uiismarttv.fragment.search.SearchFragment
 import com.faishalbadri.uiismarttv.fragment.search.SearchFragmentDirections
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
-import com.faishalbadri.uiismarttv.utils.safeNavigate
 import com.faishalbadri.uiismarttv.utils.toActivity
 
 class NewsViewHolder(
@@ -57,7 +56,7 @@ class NewsViewHolder(
                 (background as? GradientDrawable)?.setColor(colors[bindingAdapterPosition % colors.size])
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is SearchFragment -> findNavController().safeNavigate(
+                        is SearchFragment -> findNavController().navigate(
                             SearchFragmentDirections.actionSearchToNewsDetail(news.id)
                         )
                     }
@@ -100,7 +99,7 @@ class NewsViewHolder(
                 }
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is NewsDetailFragment -> findNavController().safeNavigate(
+                        is NewsDetailFragment -> findNavController().navigate(
                             NewsDetailFragmentDirections.actionNewsDetailSelf(news.id)
                         )
                     }
@@ -145,13 +144,13 @@ class NewsViewHolder(
                 }
                 setOnClickListener {
                     when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                        is NewsFragment -> findNavController().safeNavigate(
+                        is NewsFragment -> findNavController().navigate(
                             NewsFragmentDirections.actionNewsToNewsDetail(
                                 news.id
                             )
                         )
 
-                        is SearchFragment -> findNavController().safeNavigate(
+                        is SearchFragment -> findNavController().navigate(
                             SearchFragmentDirections.actionSearchToNewsDetail(news.id)
                         )
                     }
@@ -235,7 +234,7 @@ class NewsViewHolder(
                     }
                     setOnClickListener {
                         when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> findNavController().safeNavigate(
+                            is HomeFragment -> findNavController().navigate(
                                 HomeFragmentDirections.actionHomeToNews(news.title)
                             )
                         }
@@ -278,8 +277,8 @@ class NewsViewHolder(
                         }
                     }
                     setOnClickListener {
-                        when (val fragment = context.toActivity()?.getCurrentFragment()) {
-                            is HomeFragment -> findNavController().safeNavigate(
+                        when (context.toActivity()?.getCurrentFragment()) {
+                            is HomeFragment -> findNavController().navigate(
                                 HomeFragmentDirections.actionHomeToNewsDetail(news.id)
                             )
                         }

@@ -68,8 +68,8 @@ object APIService {
         return searchData
     }
 
-    suspend fun getHome(provinsi: String, kota: String): List<HomeData> {
-        val home = service.getHome(provinsi, kota, Calendar.getInstance().time)
+    suspend fun getHome(id: String, nama: String): List<HomeData> {
+        val home = service.getHome(id)
         var homeData: List<HomeData> = mutableListOf()
         if (home.isSuccessful) {
             val homeResponse = home.body()
@@ -161,7 +161,7 @@ object APIService {
                     list = dataBanner
                 ),
                 HomeData(
-                    msg = HomeData.Adzan + " " + kota.capitalizeWords(),
+                    msg = HomeData.Adzan + " " + nama.capitalizeWords(),
                     list = dataAdzan
                 ),
                 HomeData(
@@ -231,12 +231,12 @@ object APIService {
         return newsData
     }
 
-    suspend fun getLocationProvinsi(): List<Adzan> {
-        val provinsi = service.getProvinsi()
-        val provinsiData: MutableList<Adzan> = mutableListOf()
-        if (provinsi.isSuccessful) {
-            provinsi.body()!!.forEach {
-                provinsiData.add(
+    suspend fun getLocation(): List<Adzan> {
+        val location = service.getLocation()
+        val locationData: MutableList<Adzan> = mutableListOf()
+        if (location.isSuccessful) {
+            location.body()!!.sortedBy { it.value }.forEach {
+                locationData.add(
                     Adzan(
                         id = it.id,
                         value = it.value
@@ -244,23 +244,7 @@ object APIService {
                 )
             }
         }
-        return provinsiData
-    }
-
-    suspend fun getLocationKota(provinsi: String): List<Adzan> {
-        val kota = service.getKota(provinsi)
-        val kotaData: MutableList<Adzan> = mutableListOf()
-        if (kota.isSuccessful) {
-            kota.body()!!.forEach {
-                kotaData.add(
-                    Adzan(
-                        id = it.id,
-                        value = it.value
-                    )
-                )
-            }
-        }
-        return kotaData
+        return locationData
     }
 
     suspend fun getDetailNews(id: String): News {

@@ -24,7 +24,6 @@ class LocationFragment : Fragment() {
     val binding get() = _binding!!
 
     lateinit var viewModelFactory: ViewModelFactory
-    val args by navArgs<LocationFragmentArgs>()
     val viewModel: LocationViewModel by viewModels { viewModelFactory }
     private val appAdapter = AppAdapter()
 
@@ -40,7 +39,7 @@ class LocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLocation().observe(viewLifecycleOwner) {
-            if (it.provinsi.isEmpty()) {
+            if (it.id.isEmpty()) {
                 setView()
             }
         }
@@ -66,11 +65,11 @@ class LocationFragment : Fragment() {
         }
     }
 
-    fun saveLocation(kota: String) {
+    fun saveLocation(location: Adzan) {
         viewModel.saveSession(
             LocationDataPreferences(
-                provinsi = args.provinsi,
-                kota = kota
+                id = location.id,
+                nama = location.value
             )
         )
         requireContext().toActivity()?.apply {
@@ -86,7 +85,7 @@ class LocationFragment : Fragment() {
 
     private fun setView() {
         if (appAdapter.items.size == 0) {
-            viewModel.getLocation(args.provinsi)
+            viewModel.getLocationAPI()
         }
         binding.vgvLocation.apply {
             adapter = appAdapter

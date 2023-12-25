@@ -5,14 +5,11 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
@@ -51,8 +48,8 @@ fun FragmentActivity.getCurrentFragment(): Fragment? = when (this) {
     else -> null
 }
 
-fun NavController.safeNavigate(direction: NavDirections) {
-    currentDestination?.getAction(direction.actionId)?.run {
-        navigate(direction)
-    }
-}
+//fun NavController.safeNavigate(direction: NavDirections) {
+//    currentDestination?.getAction(direction.actionId)?.run {
+//        navigate(direction)
+//    }
+//}

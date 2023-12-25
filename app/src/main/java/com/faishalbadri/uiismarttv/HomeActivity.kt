@@ -25,7 +25,6 @@ import com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.ViewModelFactory
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
-import com.faishalbadri.uiismarttv.utils.safeNavigate
 import java.util.Locale
 
 @UnstableApi
@@ -54,8 +53,8 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
         val navController = navHostFragment.navController
 
         mainViewModel.getLocation().observe(this) {
-            if (it.provinsi.isNotEmpty()) {
-                navController.safeNavigate(NavMainGraphDirections.actionGlobalHomeFragment())
+            if (it.id.isNotEmpty()) {
+                navController.navigate(NavMainGraphDirections.actionGlobalHomeFragment())
             }
         }
 
@@ -77,7 +76,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                 }
 
                 setOnClickListener {
-                    navController.safeNavigate(NavMainGraphDirections.actionGlobalProfile())
+                    navController.navigate(NavMainGraphDirections.actionGlobalProfile())
                 }
             }
 

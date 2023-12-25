@@ -43,9 +43,7 @@ interface APIInterface {
     @FormUrlEncoded
     @POST("home/")
     suspend fun getHome(
-        @Field("provinsi") provinsi: String,
-        @Field("kota") kota: String,
-        @Field("date") date: Date
+        @Field("id") id: String
     ): Response<HomeResponse>
 
     @FormUrlEncoded
@@ -72,14 +70,8 @@ interface APIInterface {
         @Field("id") id: String,
     ): Response<List<News>>
 
-    @GET("adzan/provinsi")
-    suspend fun getProvinsi(): Response<List<Adzan>>
-
-    @FormUrlEncoded
-    @POST("adzan/kota")
-    suspend fun getKota(
-        @Field("provinsi") provinsi: String,
-    ): Response<List<Adzan>>
+    @GET("adzan/lokasi")
+    suspend fun getLocation(): Response<List<Adzan>>
 
     @FormUrlEncoded
     @POST("search/")

@@ -82,10 +82,6 @@
         android:name="com.faishalbadri.uiismarttv.fragment.location.LocationFragment"
         android:label="fragment_location"
         tools:layout="@layout/fragment_location">
-        <argument
-            android:name="provinsi"
-            android:defaultValue="0"
-            app:argType="string" />
         <action
             android:id="@+id/action_location_to_home"
             app:destination="@id/home" />
@@ -95,6 +91,7 @@
     </fragment>
     <action
         android:id="@+id/action_global_profile"
-        app:destination="@id/profile" /><action android:id="@+id/action_global_search" app:destination="@id/search"/>
+        app:destination="@id/profile" />
+    <action android:id="@+id/action_global_search" app:destination="@id/search" />
 
 </navigation>

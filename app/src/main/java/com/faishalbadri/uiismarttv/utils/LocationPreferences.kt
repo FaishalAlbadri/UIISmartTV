@@ -10,22 +10,22 @@ import kotlinx.coroutines.flow.map
 
 class LocationPreferences private constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val PROVINSI_KEY = stringPreferencesKey("provinsi")
-    private val KOTA_KEY = stringPreferencesKey("kota")
+    private val ID_KEY = stringPreferencesKey("id")
+    private val NAMA_KEY = stringPreferencesKey("nama")
 
     fun getLocation(): Flow<LocationDataPreferences> {
         return dataStore.data.map { preferences ->
             LocationDataPreferences(
-                preferences[PROVINSI_KEY] ?: "",
-                preferences[KOTA_KEY] ?: ""
+                preferences[ID_KEY] ?: "",
+                preferences[NAMA_KEY] ?: ""
             )
         }
     }
 
     suspend fun saveLocation(location: LocationDataPreferences) {
         dataStore.edit { preferences ->
-            preferences[PROVINSI_KEY] = location.provinsi
-            preferences[KOTA_KEY] = location.kota
+            preferences[ID_KEY] = location.id
+            preferences[NAMA_KEY] = location.nama
         }
     }
 
