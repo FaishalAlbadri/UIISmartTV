@@ -67,8 +67,11 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation("org.jsoup:jsoup:1.15.3")
 
-    //streaming radio
+    //streaming radio and video
     implementation("androidx.media3:media3-exoplayer:1.2.0")
-    implementation("androidx.media3:media3-ui:1.2.0")
     implementation("androidx.media3:media3-exoplayer-hls:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
+    implementation("androidx.media3:media3-session:1.2.0")
+    implementation("androidx.media3:media3-ui:1.2.0")
+    implementation("com.github.maxrave-dev:kotlin-youtubeExtractor:0.0.7")
 }

@@ -23,6 +23,7 @@ import com.faishalbadri.uiismarttv.fragment.location.LocationViewModel
 import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment
 import com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
+import com.faishalbadri.uiismarttv.fragment.video.VideoPlayerFragment
 import com.faishalbadri.uiismarttv.utils.ViewModelFactory
 import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
@@ -129,6 +130,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                     else -> {
                         when (val currentFragment = getCurrentFragment()) {
                             is ProfileFragment -> currentFragment.onBackPressed()
+                            is VideoPlayerFragment -> currentFragment.onBackPressed()
                             else -> false
                         }.takeIf { !it }?.let {
                             navController.navigateUp()

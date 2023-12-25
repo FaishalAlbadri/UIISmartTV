@@ -16,6 +16,11 @@ import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoVerticalBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
+import com.faishalbadri.uiismarttv.fragment.search.SearchFragment
+import com.faishalbadri.uiismarttv.fragment.search.SearchFragmentDirections
+import com.faishalbadri.uiismarttv.fragment.video.VideoFragment
+import com.faishalbadri.uiismarttv.fragment.video.VideoFragmentDirections
+import com.faishalbadri.uiismarttv.fragment.video.VideoPlayerFragment
 import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
@@ -67,9 +72,15 @@ class VideoViewHolder(
                     }
                 }
                 clickWithDebounce {
-//                    when (val fragment = context.toActivity()?.getCurrentFragment()) {
-//                        is HomeFragment ->
-//                    }
+                    when (context.toActivity()?.getCurrentFragment()) {
+                        is VideoFragment -> findNavController().navigate(
+                            VideoFragmentDirections.actionVideoToPlayer(
+                                video.id,
+                                video.title,
+                                video.desc
+                            )
+                        )
+                    }
                 }
             }
 
@@ -190,9 +201,23 @@ class VideoViewHolder(
                         }
                     }
                     clickWithDebounce {
-//                        when (val fragment = context.toActivity()?.getCurrentFragment()) {
-//                            is HomeFragment ->
-//                        }
+                        when (context.toActivity()?.getCurrentFragment()) {
+                            is HomeFragment -> findNavController().navigate(
+                                HomeFragmentDirections.actionHomeToPlayer(
+                                    video.id,
+                                    video.title,
+                                    video.desc
+                                )
+                            )
+
+                            is SearchFragment -> findNavController().navigate(
+                                SearchFragmentDirections.actionSearchToPlayer(
+                                    video.id,
+                                    video.title,
+                                    video.desc
+                                )
+                            )
+                        }
                     }
                 }
 
