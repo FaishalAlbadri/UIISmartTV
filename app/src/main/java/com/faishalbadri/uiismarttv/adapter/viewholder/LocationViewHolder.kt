@@ -10,6 +10,7 @@ import com.faishalbadri.uiismarttv.data.local.Adzan
 import com.faishalbadri.uiismarttv.databinding.ItemLocationBinding
 import com.faishalbadri.uiismarttv.fragment.location.LocationFragment
 import com.faishalbadri.uiismarttv.fragment.location.LocationFragmentDirections
+import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
@@ -35,7 +36,7 @@ class LocationViewHolder(
             val colors = context.resources.getIntArray(R.array.location)
             (background as? GradientDrawable)?.setColor(colors[bindingAdapterPosition % colors.size])
 
-            setOnClickListener {
+            clickWithDebounce {
                 when (val fragment = context.toActivity()?.getCurrentFragment()) {
                     is LocationFragment -> fragment.saveLocation(adzan)
                 }

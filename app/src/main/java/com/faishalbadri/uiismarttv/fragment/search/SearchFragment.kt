@@ -15,6 +15,7 @@ import com.faishalbadri.uiismarttv.data.local.HomeData
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.data.local.Video
 import com.faishalbadri.uiismarttv.databinding.FragmentSearchBinding
+import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.hideKeyboard
 
 class SearchFragment : Fragment() {
@@ -94,7 +95,7 @@ class SearchFragment : Fragment() {
             }
         }
 
-        binding.btnSearchClear.setOnClickListener {
+        binding.btnSearchClear.clickWithDebounce {
             binding.etSearch.setText("")
         }
 

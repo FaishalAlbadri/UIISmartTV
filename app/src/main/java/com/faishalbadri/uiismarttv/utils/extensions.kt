@@ -3,6 +3,7 @@ package com.faishalbadri.uiismarttv.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -46,6 +47,17 @@ fun FragmentActivity.getCurrentFragment(): Fragment? = when (this) {
         navHostFragment.childFragmentManager.fragments.firstOrNull()
     }
     else -> null
+}
+
+fun View.clickWithDebounce(debounceTime: Long = 1200L, action: () -> Unit) {
+    this.setOnClickListener(object : View.OnClickListener {
+        private var lastClickTime: Long = 0
+        override fun onClick(v: View) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < debounceTime) return
+            else action()
+            lastClickTime = SystemClock.elapsedRealtime()
+        }
+    })
 }
 
 //fun NavController.safeNavigate(direction: NavDirections) {

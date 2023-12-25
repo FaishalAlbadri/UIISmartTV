@@ -10,6 +10,7 @@ import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.local.RadioData
 import com.faishalbadri.uiismarttv.databinding.ItemRadioBinding
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
+import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
@@ -40,7 +41,7 @@ class RadioViewHolder(
                 animation.fillAfter = true
             }
 
-            setOnClickListener {
+            clickWithDebounce {
                 when (val fragment = context.toActivity()?.getCurrentFragment()) {
                     is RadioFragment -> fragment.playRadio(radio)
                 }

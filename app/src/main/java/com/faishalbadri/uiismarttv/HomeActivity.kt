@@ -24,6 +24,7 @@ import com.faishalbadri.uiismarttv.fragment.news.NewsDetailFragment
 import com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment
 import com.faishalbadri.uiismarttv.fragment.radio.RadioFragment
 import com.faishalbadri.uiismarttv.utils.ViewModelFactory
+import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import java.util.Locale
 
@@ -75,7 +76,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                     header.tvNavigationHeaderTitle.visibility = View.GONE
                 }
 
-                setOnClickListener {
+                clickWithDebounce {
                     navController.navigate(NavMainGraphDirections.actionGlobalProfile())
                 }
             }

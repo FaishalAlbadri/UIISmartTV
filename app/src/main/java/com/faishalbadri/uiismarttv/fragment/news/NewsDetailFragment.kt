@@ -18,6 +18,7 @@ import com.faishalbadri.uiismarttv.HomeActivity
 import com.faishalbadri.uiismarttv.R
 import com.faishalbadri.uiismarttv.data.local.News
 import com.faishalbadri.uiismarttv.databinding.FragmentNewsDetailBinding
+import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 
 class NewsDetailFragment : Fragment() {
 
@@ -109,7 +110,7 @@ class NewsDetailFragment : Fragment() {
                     }
                 }
 
-                setOnClickListener {
+                clickWithDebounce {
                     if (tag.toString() == "play") {
                         if (activityHome.textToSpeechStatus) {
                             setImageDrawable(
@@ -125,7 +126,7 @@ class NewsDetailFragment : Fragment() {
                             Toast.makeText(activity, "Tidak dapat memutar audio", Toast.LENGTH_SHORT).show()
                         }
 
-                    } else {
+                    } else if (tag.toString() == "stop") {
                         setImageDrawable(
                             ResourcesCompat.getDrawable(
                                 resources,
@@ -176,6 +177,7 @@ class NewsDetailFragment : Fragment() {
             txtTitle.text = dataNews.title
             txtDesc.text = dataNews.desc
             txtDate.text = dataNews.date
+            btnTextToSpeech.tag = "play"
         }
     }
 

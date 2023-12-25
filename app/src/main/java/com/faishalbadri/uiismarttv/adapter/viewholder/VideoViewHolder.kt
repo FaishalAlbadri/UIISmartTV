@@ -16,6 +16,7 @@ import com.faishalbadri.uiismarttv.databinding.ItemVideoBinding
 import com.faishalbadri.uiismarttv.databinding.ItemVideoVerticalBinding
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragment
 import com.faishalbadri.uiismarttv.fragment.home.HomeFragmentDirections
+import com.faishalbadri.uiismarttv.utils.clickWithDebounce
 import com.faishalbadri.uiismarttv.utils.getCurrentFragment
 import com.faishalbadri.uiismarttv.utils.toActivity
 
@@ -65,7 +66,7 @@ class VideoViewHolder(
                         )
                     }
                 }
-                setOnClickListener {
+                clickWithDebounce {
 //                    when (val fragment = context.toActivity()?.getCurrentFragment()) {
 //                        is HomeFragment ->
 //                    }
@@ -146,7 +147,7 @@ class VideoViewHolder(
                             }
                         }
                     }
-                    setOnClickListener {
+                    clickWithDebounce {
                         when (context.toActivity()?.getCurrentFragment()) {
                             is HomeFragment -> findNavController().navigate(HomeFragmentDirections.actionHomeToVideo())
                         }
@@ -188,7 +189,7 @@ class VideoViewHolder(
                             )
                         }
                     }
-                    setOnClickListener {
+                    clickWithDebounce {
 //                        when (val fragment = context.toActivity()?.getCurrentFragment()) {
 //                            is HomeFragment ->
 //                        }
