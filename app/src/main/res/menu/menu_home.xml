@@ -19,7 +19,7 @@
         android:title="@string/main_menu_radio" />
 
     <item
-        android:id="@+id/gallery"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="@string/main_menu_gallery" />
+        android:id="@+id/pmb"
+        android:icon="@drawable/ic_menu_pmb"
+        android:title="@string/main_menu_pmb" />
 </menu>

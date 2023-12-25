@@ -39,11 +39,6 @@
         android:label="fragment_radio"
         tools:layout="@layout/fragment_radio" />
     <fragment
-        android:id="@+id/gallery"
-        android:name="com.faishalbadri.uiismarttv.fragment.gallery.GalleryFragment"
-        android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" />
-    <fragment
         android:id="@+id/profile"
         android:name="com.faishalbadri.uiismarttv.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
@@ -93,5 +88,10 @@
         android:id="@+id/action_global_profile"
         app:destination="@id/profile" />
     <action android:id="@+id/action_global_search" app:destination="@id/search" />
+    <fragment
+        android:id="@+id/pmb"
+        android:name="com.faishalbadri.uiismarttv.fragment.pmb.PmbFragment"
+        android:label="fragment_pmb"
+        tools:layout="@layout/fragment_pmb" />
 
 </navigation>

@@ -4,7 +4,7 @@
     <string name="main_menu_search">Search</string>
     <string name="main_menu_home">Home</string>
     <string name="main_menu_radio">Radio</string>
-    <string name="main_menu_gallery">Gallery</string>
+    <string name="main_menu_pmb">PMB</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="radio_info">Radio Streaming Yogyakarta</string>

@@ -49,7 +49,7 @@ fun FragmentActivity.getCurrentFragment(): Fragment? = when (this) {
     else -> null
 }
 
-fun View.clickWithDebounce(debounceTime: Long = 1200L, action: () -> Unit) {
+fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {
     this.setOnClickListener(object : View.OnClickListener {
         private var lastClickTime: Long = 0
         override fun onClick(v: View) {

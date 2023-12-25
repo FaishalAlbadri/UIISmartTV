@@ -84,7 +84,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
             when (destination.id) {
                 R.id.search,
                 R.id.home,
-                R.id.gallery -> {
+                R.id.pmb -> {
                     binding.navMain.visibility = View.VISIBLE
                     if (player != null && dataRadio != null) {
                         binding.layoutListening.visibility = View.VISIBLE
@@ -117,7 +117,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
                     }
                     R.id.search,
                     R.id.radio,
-                    R.id.gallery -> when {
+                    R.id.pmb -> when {
                         binding.navMain.hasFocus() -> binding.navMain.findViewById<View>(R.id.home)
                             .let {
                                 it.requestFocus()
@@ -168,6 +168,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
             stopPlayer()
             dataAdzan = "Saat ini adzan sedang berkumandang"
             player = ExoPlayer.Builder(this).build().apply {
+                setPlaybackSpeed(1F)
                 addListener(playerListener)
             }
             val mediaItem = MediaItem.fromUri(RawResourceDataSource.buildRawResourceUri(R.raw.adzan))
@@ -181,6 +182,7 @@ class HomeActivity : FragmentActivity(), TextToSpeech.OnInitListener {
             stopPlayer()
             dataRadio = data
             player = ExoPlayer.Builder(this).build().apply {
+                setPlaybackSpeed(1F)
                 addListener(playerListener)
             }
             val mediaItem = MediaItem.fromUri(data.link)
