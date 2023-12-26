@@ -8,6 +8,6 @@
 
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.7</domain>
-        <domain includeSubdomains="true">10.200.60.70</domain>
+        <domain includeSubdomains="true">uiitv.000webhostapp.com</domain>
     </domain-config>
 </network-security-config>

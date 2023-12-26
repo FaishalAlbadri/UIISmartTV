@@ -109,7 +109,7 @@ class VideoPlayerFragment : Fragment() {
         override fun onPlaybackStateChanged(playbackState: Int) {
             super.onPlaybackStateChanged(playbackState)
             when(playbackState){
-                STATE_ENDED -> restartPlayer()
+                STATE_ENDED -> pause()
                 STATE_READY -> {
                     binding.pvVideo.player = player
                     play()

@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 interface APIInterface {
 
     companion object {
-        val url = "http://192.168.1.7/uiitv/"
+        val url = "https://uiitv.000webhostapp.com/"
         fun build(): APIInterface {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY

@@ -78,7 +78,7 @@ class AdzanViewHolder(
 
                         if (selisihWaktu <= 0L) {
                             binding.txtWaktu.text = adzan.value
-                            if (selisihWaktu == 0L) {
+                            if (selisihWaktu == 0L && adzan.value != "Matahari Terbit") {
                                 when (val fragment = context.toActivity()?.getCurrentFragment()) {
                                     is HomeFragment -> fragment.activityHome.initAdzan()
                                 }

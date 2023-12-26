@@ -25,6 +25,11 @@ class VideoPlayerViewModel(
         data class FailedLoadVideo(val error: String) : State()
     }
 
+    companion object {
+        const val HD_720 = 22
+        const val SD_360 = 18
+    }
+
     init {
         getLink(id, context)
     }
@@ -38,7 +43,7 @@ class VideoPlayerViewModel(
             if (yt.state == com.maxrave.kotlinyoutubeextractor.State.SUCCESS) {
                 ytFiles = yt.getYTFiles()
                 ytFiles.let {
-                    val a = it?.get(18).let { data ->
+                    val a = it?.get(SD_360).let { data ->
                         data?.url.toString()
                     }
                     _state.postValue(State.SuccessLoadVideo(a))
